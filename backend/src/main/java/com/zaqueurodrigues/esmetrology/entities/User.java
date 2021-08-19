@@ -13,12 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable{
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,6 +33,10 @@ public class User implements Serializable{
 	private String email;
 	
 	private String password;
+	
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -48,13 +53,14 @@ public class User implements Serializable{
 		
 	}
 
-	public User(Long id, String name, String enrollment, String email, String password) {
+	public User(Long id, String name, String enrollment, String email, String password, Department department) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.enrollment = enrollment;
 		this.email = email;
 		this.password = password;
+		this.department = department;
 	}
 
 	public Long getId() {
@@ -96,9 +102,24 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+
+	public Department getDepartmentId() {
+		return department;
+	}
+
+	public void setDepartmentId(Department departmentId) {
+		this.department = departmentId;
+	}
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+	
+
+	public Set<Notification> getNotifications() {
+		return notifications;
 	}
 
 	@Override

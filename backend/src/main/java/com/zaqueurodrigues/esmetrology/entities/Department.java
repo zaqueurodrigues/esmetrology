@@ -1,33 +1,39 @@
 package com.zaqueurodrigues.esmetrology.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_role")
-public class Role implements Serializable {
+@Table(name = "tb_department")
+public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String authority;
+	private String name;
 	
-	public Role() {
+	@OneToMany(mappedBy = "department")
+	private Set<User> users = new HashSet<>();
+	
+	public Department() {
 		
 	}
 
-	public Role(Long id, String authority) {
+	public Department(Long id, String name) {
 		super();
 		this.id = id;
-		this.authority = authority;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -38,12 +44,16 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getAuthority() {
-		return authority;
+	public String getName() {
+		return name;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	@Override
@@ -59,7 +69,7 @@ public class Role implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		Department other = (Department) obj;
 		return Objects.equals(id, other.id);
 	}
 	

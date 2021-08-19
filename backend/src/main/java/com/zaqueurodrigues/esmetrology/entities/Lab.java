@@ -10,24 +10,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_role")
-public class Role implements Serializable {
+@Table(name = "tb_lab")
+public class Lab implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	public Long id;
 	
-	private String authority;
+	public String name;
 	
-	public Role() {
+	public String address;
+	
+	public String accreditationNumber;
+	
+	public Lab() {
 		
 	}
 
-	public Role(Long id, String authority) {
+	public Lab(Long id, String name, String address, String accreditationNumber) {
 		super();
 		this.id = id;
-		this.authority = authority;
+		this.name = name;
+		this.address = address;
+		this.accreditationNumber = accreditationNumber;
 	}
 
 	public Long getId() {
@@ -38,12 +44,28 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getAuthority() {
-		return authority;
+	public String getName() {
+		return name;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAccreditationNumber() {
+		return accreditationNumber;
+	}
+
+	public void setAccreditationNumber(String accreditaionNumber) {
+		this.accreditationNumber = accreditaionNumber;
 	}
 
 	@Override
@@ -59,8 +81,7 @@ public class Role implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		Lab other = (Lab) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 }
