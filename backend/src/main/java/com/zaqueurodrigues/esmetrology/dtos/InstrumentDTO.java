@@ -1,64 +1,31 @@
-package com.zaqueurodrigues.esmetrology.entities;
+package com.zaqueurodrigues.esmetrology.dtos;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
-@Entity
-@Table(name = "tb_instrument")
-public class Instrument implements Serializable {
+public class InstrumentDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
-	
 	private String tag;
-	
 	private String description;
-	
 	private String type;
-	
 	private String range;
-	
 	private String frequency;
-	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant lastCalibration;
-	
 	private InstrumentStatus status;
-	
-	@Column(columnDefinition = "TEXT")
 	private String note;
+	private CertificateDTO lastCertificate;
 	
-	@ManyToOne
-	@JoinColumn(name = "department_id")
-	private Department department;
-	
-	@OneToMany(mappedBy = "instrument")
-	private List<Certificate> certificates = new ArrayList<>();
-
-	public Instrument() {
-	
+	public InstrumentDTO() {
+		
 	}
 
-	public Instrument(Long id, String tag, String description, String type, String range, String frequency, Instant lastCalibration,
-			InstrumentStatus status, String note, Department department) {
-		super();
+	public InstrumentDTO(Long id, String tag, String description, String type, String range, String frequency,
+			Instant lastCalibration, InstrumentStatus status, String note, CertificateDTO lastCertificate) {
 		this.id = id;
 		this.tag = tag;
 		this.description = description;
@@ -68,7 +35,22 @@ public class Instrument implements Serializable {
 		this.lastCalibration = lastCalibration;
 		this.status = status;
 		this.note = note;
-		this.department = department;
+		this.lastCertificate = lastCertificate;
+	}
+	
+	public InstrumentDTO(Instrument entity) {
+		id = entity.getId();
+		tag = entity.getTag();
+		description = entity.getDescription();
+		type = entity.getType();
+		range = entity.getRange();
+		frequency = entity.getFrequency();
+		lastCalibration = entity.getLastCalibration();
+		status = entity.getStatus();
+		note = entity.getNote();
+		
+		lastCertificate= new CertificateDTO(entity.getCertificates().get(entity.getCertificates().size()-1));
+		
 	}
 
 	public Long getId() {
@@ -78,7 +60,7 @@ public class Instrument implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getTag() {
 		return tag;
 	}
@@ -143,33 +125,12 @@ public class Instrument implements Serializable {
 		this.note = note;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public CertificateDTO getLastCertificate() {
+		return lastCertificate;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setLastCertificate(CertificateDTO lastCertificate) {
+		this.lastCertificate = lastCertificate;
 	}
-
-	public List<Certificate> getCertificates() {
-		return certificates;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Instrument other = (Instrument) obj;
-		return Objects.equals(id, other.id);
-	}
-
+	
 }

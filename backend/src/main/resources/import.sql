@@ -3,7 +3,7 @@ INSERT INTO tb_department (name) VALUES ('Storeroom stove');
 
 INSERT INTO tb_user (name, enrollment, email, password, department_id) VALUES ('Zaqueu Rodrigues', '588941826', 'zaqueu.pereira@esmaltec.com.br', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 1);
 INSERT INTO tb_user (name, enrollment, email, password, department_id) VALUES ('Pedro Gomes', '588949517', 'pedro.junior@esmaltec.com.br', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 1);
-INSERT INTO tb_user (name, enrollment, email, password, department_id) VALUES ('Francisco Wedersen', '588919293', 'francisco.wedersen@esmaltec.com.br', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 1);
+INSERT INTO tb_user (name, enrollment, email, password, department_id) VALUES ('Francisco Wedersen', '588919293', 'francisco.wedersen@esmaltec.com.br', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG', 2);
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_COMMON');
 INSERT INTO tb_role (authority) VALUES ('ROLE_MAINTAINER');
