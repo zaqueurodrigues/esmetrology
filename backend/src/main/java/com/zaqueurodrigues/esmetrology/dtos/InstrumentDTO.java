@@ -49,7 +49,12 @@ public class InstrumentDTO implements Serializable {
 		status = entity.getStatus();
 		note = entity.getNote();
 		
-		lastCertificate= new CertificateDTO(entity.getCertificates().get(entity.getCertificates().size()-1));
+		if(!entity.getCertificates().isEmpty()) {
+			lastCertificate= new CertificateDTO(entity.getCertificates().get(entity.getCertificates().size()-1));
+		} else {
+			lastCertificate = null;
+		}
+		
 		
 	}
 
