@@ -2,7 +2,9 @@ package com.zaqueurodrigues.esmetrology.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
@@ -45,6 +48,9 @@ public class Instrument implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "department_id")
 	private Department department;
+	
+	@OneToMany(mappedBy = "instrument")
+	private Set<Certificate> certificates = new HashSet<>();
 
 	public Instrument() {
 	
@@ -143,6 +149,10 @@ public class Instrument implements Serializable {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public Set<Certificate> getCertificates() {
+		return certificates;
 	}
 
 	@Override

@@ -1,12 +1,15 @@
 package com.zaqueurodrigues.esmetrology.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,13 +19,16 @@ public class Lab implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	private Long id;
 	
-	public String name;
+	private String name;
 	
-	public String address;
+	private String address;
 	
-	public String accreditationNumber;
+	private String accreditationNumber;
+	
+	@OneToMany(mappedBy = "lab")
+	private Set<Certificate> certificates = new HashSet<>();
 	
 	public Lab() {
 		
@@ -66,6 +72,10 @@ public class Lab implements Serializable {
 
 	public void setAccreditationNumber(String accreditaionNumber) {
 		this.accreditationNumber = accreditaionNumber;
+	}
+
+	public Set<Certificate> getCertificates() {
+		return certificates;
 	}
 
 	@Override
