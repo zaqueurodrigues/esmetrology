@@ -20,3 +20,5 @@ INSERT INTO tb_notification (text, moment, read, user_id) VALUES ('Manometro 52.
 INSERT INTO tb_notification (text, moment, read, user_id) VALUES ('Paquímetro 52.01.00077 vencido', TIMESTAMP WITH TIME ZONE '2020-12-12T13:00:00Z', false, 1);
 
 INSERT INTO tb_lab (name, address, accreditation_number) VALUES ('M&M Instrumentation', 'Av. Airton Senna, 13', 'RBC-52548871');
+
+INSERT INTO tb_instrument (tag, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.34.00038', 'Manometro Digital Tex', 'Manometro', '0 a 16 bar', '12 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 1, 'Atualizado', 1); 

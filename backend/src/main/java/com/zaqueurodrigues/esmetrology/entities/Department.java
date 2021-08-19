@@ -26,6 +26,9 @@ public class Department implements Serializable {
 	@OneToMany(mappedBy = "department")
 	private Set<User> users = new HashSet<>();
 	
+	@OneToMany(mappedBy = "department")
+	private Set<Instrument> instruments = new HashSet<>();
+	
 	public Department() {
 		
 	}
@@ -54,6 +57,10 @@ public class Department implements Serializable {
 
 	public Set<User> getUsers() {
 		return users;
+	}
+
+	public Set<Instrument> getInstruments() {
+		return instruments;
 	}
 
 	@Override
