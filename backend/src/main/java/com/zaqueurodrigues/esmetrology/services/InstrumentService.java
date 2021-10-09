@@ -1,5 +1,6 @@
 package com.zaqueurodrigues.esmetrology.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,9 @@ public class InstrumentService {
 	@Autowired
 	private AuthService authService;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Transactional(readOnly = true)
 	public Page<InstrumentDTO> findAll(Pageable pageable){
 		
@@ -35,9 +39,9 @@ public class InstrumentService {
 			Department department = departmentRepository.getById(user.getDepartment().getId());
 			
 			Page<Instrument> result = instrumentRepository.findByDepartment(department, pageable);
-			return result.map(instrument -> new InstrumentDTO(instrument));
+			return result.map(instrument -> modelMapper.map(instrument, InstrumentDTO.class));
 		}
 		
-		return instrumentRepository.findAll(pageable).map(instrument -> new InstrumentDTO(instrument));
+		return instrumentRepository.findAll(pageable).map(instrument -> modelMapper.map(instrument, InstrumentDTO.class));
 	}
 }

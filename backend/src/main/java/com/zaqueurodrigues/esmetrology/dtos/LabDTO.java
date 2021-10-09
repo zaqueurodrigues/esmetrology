@@ -13,13 +13,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class LabDTO implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
-	private String enrollment;
-	private String email;
-	private Long departmentId;
+	private String address;
+	private String accreditationNumber;
 
 }

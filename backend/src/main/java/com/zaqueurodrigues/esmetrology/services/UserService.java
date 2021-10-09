@@ -1,5 +1,6 @@
 package com.zaqueurodrigues.esmetrology.services;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +26,13 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private AuthService authService;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
 		authService.validateSelfOrAdmin(id);
-		return repository.findById(id).map(user -> new UserDTO(user)).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		return repository.findById(id).map(user -> modelMapper.map(user, UserDTO.class)).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 	}
 	
 	@Override
