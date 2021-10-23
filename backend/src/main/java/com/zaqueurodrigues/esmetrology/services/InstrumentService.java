@@ -6,12 +6,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
 import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.User;
+import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
 import com.zaqueurodrigues.esmetrology.repositories.InstrumentRepository;
+import com.zaqueurodrigues.esmetrology.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class InstrumentService {
@@ -50,5 +53,30 @@ public class InstrumentService {
 		
 	}
 	
+	@Transactional
+	public InstrumentViewDTO insert(InstrumentSaveDTO dto){
+		Instrument instrument = new Instrument();
+		Department department = departmentRepository.getById(dto.getDepartmentId());
+		
+		if(department == null) {
+			throw new ResourceNotFoundException("Department not exists: " +dto.getDepartmentId());
+		}
+		
+		instrument = Instrument.builder()
+				.tag(dto.getTag())
+				.description(dto.getDescription())
+				.type(dto.getType())
+				.frequency(dto.getFrequency())
+				.range(dto.getRange())
+				.department(department)
+				.status(InstrumentStatus.ACTIVE)
+				.build();
+		
+		instrument = instrumentRepository.save(instrument);
+		
+		return InstrumentViewDTO.toInstrument(instrument);
+		
+	}
+				
 	
 }

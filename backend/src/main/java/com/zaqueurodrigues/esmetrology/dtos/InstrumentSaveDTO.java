@@ -1,19 +1,23 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
-import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
 @Data
-public class InstrumentRequestDTO {
+public class InstrumentSaveDTO {
 	
+	@NotBlank
 	private String tag;
+	@NotBlank
 	private String description;
+	@NotBlank
 	private String type;
+	@NotBlank
 	private String range;
+	@NotBlank
 	private String frequency;
-	private InstrumentStatus status;
-	private String note;
+	@NotBlank
 	private Long departmentId;
 
 }
