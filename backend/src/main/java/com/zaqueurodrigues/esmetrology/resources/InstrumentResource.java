@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentDTO;
+import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.services.InstrumentService;
 
 @RestController
@@ -19,7 +19,7 @@ public class InstrumentResource {
 	private InstrumentService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<InstrumentDTO>> findAll(Pageable pageable){
+	public ResponseEntity<Page<InstrumentViewDTO>> findAll(Pageable pageable){
 		return ResponseEntity.ok(service.findAll(pageable));
 	}
 

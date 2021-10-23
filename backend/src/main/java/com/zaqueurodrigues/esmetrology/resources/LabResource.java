@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zaqueurodrigues.esmetrology.dtos.LabDTO;
+import com.zaqueurodrigues.esmetrology.dtos.LabViewDTO;
 import com.zaqueurodrigues.esmetrology.services.LabService;
 
 @RestController
@@ -19,7 +19,7 @@ public class LabResource {
 	private LabService labService;
 
 	@GetMapping
-	public ResponseEntity<Page<LabDTO>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<LabViewDTO>> findAll(Pageable pageable) {
 		return ResponseEntity.ok(labService.findAll(pageable));
 	}
 }

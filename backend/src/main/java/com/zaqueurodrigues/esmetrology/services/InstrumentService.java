@@ -1,13 +1,12 @@
 package com.zaqueurodrigues.esmetrology.services;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentDTO;
+import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.User;
@@ -26,22 +25,18 @@ public class InstrumentService {
 	@Autowired
 	private AuthService authService;
 	
-	@Autowired
-	private ModelMapper modelMapper;
-	
 	@Transactional(readOnly = true)
-	public Page<InstrumentDTO> findAll(Pageable pageable){
+	public Page<InstrumentViewDTO> findAll(Pageable pageable){
 		
 		User user = authService.authenticated();
 		
 		if(!user.hasRole("ROLE_ADMIN")) {
 			
 			Department department = departmentRepository.getById(user.getDepartment().getId());
-			
 			Page<Instrument> result = instrumentRepository.findByDepartment(department, pageable);
-			return result.map(instrument -> modelMapper.map(instrument, InstrumentDTO.class));
+			return result.map(instrument -> InstrumentViewDTO.toInstrument(instrument));
 		}
 		
-		return instrumentRepository.findAll(pageable).map(instrument -> modelMapper.map(instrument, InstrumentDTO.class));
+		return instrumentRepository.findAll(pageable).map(instrument -> InstrumentViewDTO.toInstrument(instrument));
 	}
 }
