@@ -17,16 +17,18 @@ import javax.persistence.Table;
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tb_instrument")
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Instrument  {
 
 	@Id

@@ -1,17 +1,16 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
-import com.zaqueurodrigues.esmetrology.entities.Department;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DepartmentViewDTO {
 
 	private String name;
 	
-	public DepartmentViewDTO toDepartment(Department department) {
-		return DepartmentViewDTO.builder().name(department.getName()).build();
-	}
 }

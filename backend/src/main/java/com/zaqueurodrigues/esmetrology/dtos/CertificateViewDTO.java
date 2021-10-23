@@ -2,25 +2,19 @@ package com.zaqueurodrigues.esmetrology.dtos;
 
 import java.time.Instant;
 
-import com.zaqueurodrigues.esmetrology.entities.Certificate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CertificateViewDTO  {
 	
 	private String code;
 	private Instant calibrationDate;
 	private Instant publishDate;
-	
-	public CertificateViewDTO toCertificate(Certificate certificate) {
-		return CertificateViewDTO.builder()
-				.code(certificate.getCode())
-				.calibrationDate(certificate.getCalibrationDate())
-				.publishDate(certificate.getPublishDate())
-				.build();
-	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zaqueurodrigues.esmetrology.dtos.UserViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.User;
+import com.zaqueurodrigues.esmetrology.mappers.UserMapper;
 import com.zaqueurodrigues.esmetrology.repositories.UserRepository;
 import com.zaqueurodrigues.esmetrology.services.exceptions.ResourceNotFoundException;
 
@@ -25,10 +26,13 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private AuthService authService;
 	
+	@Autowired
+	private UserMapper userMapper;
+	
 	@Transactional(readOnly = true)
 	public UserViewDTO findById(Long id) {
 		authService.validateSelfOrAdmin(id);
-		return repository.findById(id).map(user -> UserViewDTO.toUser(user)).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+		return repository.findById(id).map(user -> userMapper.parseViewDTO(user)).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 	}
 	
 	@Override

@@ -1,24 +1,18 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserViewDTO {
 
 	private String name;
 	private String email;
 	private DepartmentViewDTO department;
-	
-	public static UserViewDTO toUser(com.zaqueurodrigues.esmetrology.entities.User user) {
-		return UserViewDTO.builder()
-				.name(user.getName())
-				.email(user.getEmail())
-				.department(new DepartmentViewDTO(user.getDepartment().getName()))
-				.build();
-				
-	}
-	
 
 }

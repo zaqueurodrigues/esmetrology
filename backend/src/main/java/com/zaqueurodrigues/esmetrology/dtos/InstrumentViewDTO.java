@@ -1,13 +1,16 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
-import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class InstrumentViewDTO {
 	
 	private String tag;
@@ -19,17 +22,4 @@ public class InstrumentViewDTO {
 	private String note;
 	private DepartmentViewDTO department;
 	
-	public static InstrumentViewDTO toInstrument(Instrument instrument) {
-		return InstrumentViewDTO.builder()
-				.tag(instrument.getTag())
-				.description(instrument.getDescription())
-				.type(instrument.getType())
-				.range(instrument.getRange())
-				.frequency(instrument.getFrequency())
-				.status(instrument.getStatus())
-				.note(instrument.getNote())
-				.department(new DepartmentViewDTO(instrument.getDepartment().getName()))
-				.build();
-	}
-
 }

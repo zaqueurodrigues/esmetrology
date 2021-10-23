@@ -2,9 +2,17 @@ package com.zaqueurodrigues.esmetrology.dtos;
 
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
+import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class InstrumentSaveDTO {
 	
 	@NotBlank
@@ -18,6 +26,8 @@ public class InstrumentSaveDTO {
 	@NotBlank
 	private String frequency;
 	@NotBlank
-	private Long departmentId;
+	private Long department;
+	@NotBlank
+	private InstrumentStatus status;
 
 }
