@@ -1,6 +1,8 @@
 package com.zaqueurodrigues.esmetrology.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +31,12 @@ public class InstrumentService {
 	private AuthService authService;
 	
 	@Transactional(readOnly = true)
+	@Cacheable(value = "instrumentList")
 	public Page<InstrumentViewDTO> findAll(
 				String tag, 
 				Long departmentId, 
 				String description,  
-				Pageable pageable
+				Pageable pageable	
 			){
 		
 		User user = authService.authenticated();
@@ -54,6 +57,7 @@ public class InstrumentService {
 	}
 	
 	@Transactional
+	@CacheEvict(value = "instrumentsList", allEntries = true)
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto){
 		Instrument instrument = new Instrument();
 		Department department = departmentRepository.getById(dto.getDepartmentId());
