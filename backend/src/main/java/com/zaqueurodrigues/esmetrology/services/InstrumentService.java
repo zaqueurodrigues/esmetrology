@@ -26,7 +26,12 @@ public class InstrumentService {
 	private AuthService authService;
 	
 	@Transactional(readOnly = true)
-	public Page<InstrumentViewDTO> findAll(Pageable pageable){
+	public Page<InstrumentViewDTO> findAll(
+				String tag, 
+				Long departmentId, 
+				String description,  
+				Pageable pageable
+			){
 		
 		User user = authService.authenticated();
 		
@@ -37,6 +42,13 @@ public class InstrumentService {
 			return result.map(instrument -> InstrumentViewDTO.toInstrument(instrument));
 		}
 		
-		return instrumentRepository.findAll(pageable).map(instrument -> InstrumentViewDTO.toInstrument(instrument));
+		Department department = (departmentId == 0) ? null : departmentRepository.getById(departmentId);
+		Page<Instrument> page = instrumentRepository.find(tag, department, description, pageable);
+		instrumentRepository.findInstrumentWithDepartment(page.getContent());
+		
+		return page.map(inst -> InstrumentViewDTO.toInstrument(inst));
+		
 	}
+	
+	
 }
