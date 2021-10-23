@@ -1,6 +1,7 @@
 package com.zaqueurodrigues.esmetrology.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -10,19 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "tb_department")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 public class Department {
 	
 	@Id
@@ -33,5 +23,67 @@ public class Department {
 	private Set<User> users = new HashSet<>();
 	@OneToMany(mappedBy = "department")
 	private Set<Instrument> instruments = new HashSet<>();
+	
+	public Department() {
+		super();
+	}
+
+	public Department(Long id, String name, Set<User> users, Set<Instrument> instruments) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.users = users;
+		this.instruments = instruments;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Set<Instrument> getInstruments() {
+		return instruments;
+	}
+
+	public void setInstruments(Set<Instrument> instruments) {
+		this.instruments = instruments;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Department other = (Department) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 	
 }

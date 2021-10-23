@@ -1,16 +1,24 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class DepartmentViewDTO {
-
+	
 	private String name;
+
+	public DepartmentViewDTO() {
+		super();
+	}
+
+	public DepartmentViewDTO(String name) {
+		super();
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}	
 	
 }
