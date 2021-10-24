@@ -2,6 +2,7 @@ package com.zaqueurodrigues.esmetrology.entities;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,19 +22,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "tb_user")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +47,95 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	private Set<Notification> notifications = new HashSet<>();
 	
+	public User() {
+		
+	}
 	
+	public User(Long id, String name, String enrollment, String email, String password, Department department,
+			Set<Role> roles, Set<Notification> notifications) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.enrollment = enrollment;
+		this.email = email;
+		this.password = password;
+		this.department = department;
+		this.roles = roles;
+		this.notifications = notifications;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEnrollment() {
+		return enrollment;
+	}
+
+	public void setEnrollment(String enrollment) {
+		this.enrollment = enrollment;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public Set<Notification> getNotifications() {
+		return notifications;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(id, other.id);
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -94,4 +172,5 @@ public class User implements UserDetails {
 	public boolean hasRole(String roleName) {
 		return roles.stream().anyMatch(role -> role.getAuthority().equals(roleName));
 	}
+
 }

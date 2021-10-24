@@ -1,5 +1,7 @@
 package com.zaqueurodrigues.esmetrology.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,6 +15,7 @@ import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.User;
+import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 import com.zaqueurodrigues.esmetrology.mappers.InstrumentMapper;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
 import com.zaqueurodrigues.esmetrology.repositories.InstrumentRepository;
@@ -57,13 +60,15 @@ public class InstrumentService {
 	@Transactional
 	@CacheEvict(value = "instrumentsList", allEntries = true)
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
-		Instrument instrument = new Instrument();
-		Department department = departmentRepository.getById(dto.getDepartment());
+		Instrument instrument = instrumentMapper.parseInstrument(dto);
+		instrument.setStatus(InstrumentStatus.ACTIVE);
+		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
 
-		if (department == null) {
-			throw new ResourceNotFoundException("Department not exists: " + dto.getDepartment());
+		if (!departmentOp.isPresent()) {
+			throw new ResourceNotFoundException("Department not exists: " + dto.getDepartmentId());
 		}
-
+		
+		instrument.setDepartment(departmentOp.get());
 
 		instrument = instrumentRepository.save(instrument);
 
