@@ -6,6 +6,7 @@ import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
 public class InstrumentSaveDTO {
 	
+	private Long id;
 	@NotBlank
 	private String tag;
 	@NotBlank
@@ -24,10 +25,11 @@ public class InstrumentSaveDTO {
 	public InstrumentSaveDTO() {
 		super();
 	}
-	public InstrumentSaveDTO(@NotBlank String tag, @NotBlank String description, @NotBlank String type,
+	public InstrumentSaveDTO(Long id, @NotBlank String tag, @NotBlank String description, @NotBlank String type,
 			@NotBlank String range, @NotBlank String frequency, @NotBlank Long departmentId,
 			@NotBlank InstrumentStatus status) {
 		super();
+		this.id = id;
 		this.tag = tag;
 		this.description = description;
 		this.type = type;
@@ -35,6 +37,16 @@ public class InstrumentSaveDTO {
 		this.frequency = frequency;
 		this.departmentId = departmentId;
 		this.status = status;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
 	}
 	public String getTag() {
 		return tag;

@@ -2,6 +2,8 @@ package com.zaqueurodrigues.esmetrology.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,7 +34,7 @@ public class InstrumentService {
 
 	@Autowired
 	private AuthService authService;
-	
+
 	@Autowired
 	private InstrumentMapper instrumentMapper;
 
@@ -46,7 +48,7 @@ public class InstrumentService {
 
 			Department department = departmentRepository.getById(user.getDepartment().getId());
 			Page<Instrument> result = instrumentRepository.findByDepartment(department, pageable);
-			return result.map(instrument -> instrumentMapper.parseViewDto(instrument) );
+			return result.map(instrument -> instrumentMapper.parseViewDto(instrument));
 		}
 
 		Department department = (departmentId == 0) ? null : departmentRepository.getById(departmentId);
@@ -67,11 +69,30 @@ public class InstrumentService {
 		if (!departmentOp.isPresent()) {
 			throw new ResourceNotFoundException("Department not exists: " + dto.getDepartmentId());
 		}
-		
+
 		instrument.setDepartment(departmentOp.get());
 
 		instrument = instrumentRepository.save(instrument);
 
+		return instrumentMapper.parseViewDto(instrument);
+
+	}
+
+	@Transactional
+	public InstrumentViewDTO update(Long id, InstrumentSaveDTO dto) {
+		dto.setId(id);
+		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
+
+		if (!departmentOp.isPresent()) {
+			throw new ResourceNotFoundException("Incorrect department id!");
+		}
+		var department = departmentOp.get();
+
+		var instrument = instrumentRepository.getById(id);
+
+		instrument = instrumentMapper.parseInstrument(dto);
+		instrument.setDepartment(department);
+		instrument = instrumentRepository.save(instrument);
 		return instrumentMapper.parseViewDto(instrument);
 
 	}
