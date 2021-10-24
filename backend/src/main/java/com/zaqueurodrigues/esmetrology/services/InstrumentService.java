@@ -2,11 +2,9 @@ package com.zaqueurodrigues.esmetrology.services;
 
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,7 @@ import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 import com.zaqueurodrigues.esmetrology.mappers.InstrumentMapper;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
 import com.zaqueurodrigues.esmetrology.repositories.InstrumentRepository;
+import com.zaqueurodrigues.esmetrology.services.exceptions.DatabaseException;
 import com.zaqueurodrigues.esmetrology.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -39,7 +38,6 @@ public class InstrumentService {
 	private InstrumentMapper instrumentMapper;
 
 	@Transactional(readOnly = true)
-	@Cacheable(value = "instrumentList")
 	public Page<InstrumentViewDTO> findAll(String tag, Long departmentId, String description, Pageable pageable) {
 
 		User user = authService.authenticated();
@@ -60,7 +58,6 @@ public class InstrumentService {
 	}
 
 	@Transactional
-	@CacheEvict(value = "instrumentsList", allEntries = true)
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
 		Instrument instrument = instrumentMapper.parseInstrument(dto);
 		instrument.setStatus(InstrumentStatus.ACTIVE);
@@ -95,6 +92,16 @@ public class InstrumentService {
 		instrument = instrumentRepository.save(instrument);
 		return instrumentMapper.parseViewDto(instrument);
 
+	}
+	
+	public void delete(Long id) {
+		try {
+			instrumentRepository.deleteById(id);	
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found: " +id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
 	}
 
 }
