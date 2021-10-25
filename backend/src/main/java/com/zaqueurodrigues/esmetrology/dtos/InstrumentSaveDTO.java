@@ -1,6 +1,7 @@
 package com.zaqueurodrigues.esmetrology.dtos;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
@@ -17,17 +18,18 @@ public class InstrumentSaveDTO {
 	private String range;
 	@NotBlank
 	private String frequency;
-	@NotBlank
+	@NotNull
 	private Long departmentId;
-	@NotBlank
+	
 	private InstrumentStatus status;
+	private String note;
 	
 	public InstrumentSaveDTO() {
 		super();
 	}
 	public InstrumentSaveDTO(Long id, @NotBlank String tag, @NotBlank String description, @NotBlank String type,
-			@NotBlank String range, @NotBlank String frequency, @NotBlank Long departmentId,
-			@NotBlank InstrumentStatus status) {
+			@NotBlank String range, @NotBlank String frequency, @NotNull Long departmentId,
+			@NotBlank InstrumentStatus status, String note) {
 		super();
 		this.id = id;
 		this.tag = tag;
@@ -37,6 +39,7 @@ public class InstrumentSaveDTO {
 		this.frequency = frequency;
 		this.departmentId = departmentId;
 		this.status = status;
+		this.note = note;
 	}
 	
 	public Long getId() {
@@ -89,6 +92,12 @@ public class InstrumentSaveDTO {
 	}
 	public void setStatus(InstrumentStatus status) {
 		this.status = status;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 }

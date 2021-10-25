@@ -60,7 +60,10 @@ public class InstrumentService {
 	@Transactional
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
 		Instrument instrument = instrumentMapper.parseInstrument(dto);
-		instrument.setStatus(InstrumentStatus.ACTIVE);
+		if(dto.getStatus() == null) {
+			instrument.setStatus(InstrumentStatus.ACTIVE);
+		}
+		
 		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
 
 		if (!departmentOp.isPresent()) {

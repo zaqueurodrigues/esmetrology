@@ -2,6 +2,8 @@ package com.zaqueurodrigues.esmetrology.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +41,7 @@ public class InstrumentResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> insert(@RequestBody InstrumentSaveDTO dto) {
+	public ResponseEntity<?> insert(@RequestBody @Valid InstrumentSaveDTO dto) {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{tag}").buildAndExpand(dto.getTag()).toUri();
 		return ResponseEntity.created(uri).body(service.insert(dto));
 	}
