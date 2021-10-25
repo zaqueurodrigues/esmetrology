@@ -21,7 +21,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private JwtTokenStore tokenStore;
 	
-	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/actuator/**" };
+	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**" };
+	
+	  public static final String[] PERMITED_SWAGGER_PATHS = new String[]{
+	            "/v2/api-docs", "/webjars/**", "/configuration/ui", "/configuration/security",
+	            "/swagger-resources", "/swagger-resources/configuration/ui", "/swagger-ui.html"
+	    };
 	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -38,6 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
+		.antMatchers(PERMITED_SWAGGER_PATHS).permitAll()
 		.anyRequest().authenticated();
 	}	
 }
