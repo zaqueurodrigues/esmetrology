@@ -3,13 +3,13 @@ package com.zaqueurodrigues.esmetrology.dtos;
 import java.time.Instant;
 
 
-public class CertificateViewDTO  {
+public class CertificateInsertDTO {
 	
 	private String code;
 	private Instant calibrationDate;
 	private Instant publishDate;
-	private InstrumentViewDTO instrument;
-	
+	private InstrumentSaveDTO instrument;
+	private LabViewDTO lab;
 	public String getCode() {
 		return code;
 	}
@@ -28,13 +28,18 @@ public class CertificateViewDTO  {
 	public void setPublishDate(Instant publishDate) {
 		this.publishDate = publishDate;
 	}
-	public InstrumentViewDTO getInstrument() {
+	public InstrumentSaveDTO getInstrument() {
 		return instrument;
 	}
-	public void setInstrument(InstrumentViewDTO instrument) {
+	public void setInstrument(InstrumentSaveDTO instrument) {
 		this.instrument = instrument;
 	}
+	public LabViewDTO getLab() {
+		return lab;
+	}
+	public void setLab(LabViewDTO lab) {
+		this.lab = lab;
+	}
 	
-	
-	
+
 }
