@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zaqueurodrigues.esmetrology.dtos.LabViewDTO;
 import com.zaqueurodrigues.esmetrology.services.LabService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/labs")
+@Api(tags = {"Labs"}, description = "API Lab")
 public class LabResource {
 	
 	@Autowired

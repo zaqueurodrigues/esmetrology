@@ -14,8 +14,11 @@ import com.zaqueurodrigues.esmetrology.dtos.CertificateInsertDTO;
 import com.zaqueurodrigues.esmetrology.dtos.CertificateViewDTO;
 import com.zaqueurodrigues.esmetrology.services.CertificateService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/certificates")
+@Api(tags = {"Certificates"}, description = "API Certificate")
 public class CertificateResource {
 	
 	@Autowired

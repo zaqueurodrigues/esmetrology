@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zaqueurodrigues.esmetrology.services.DepartmentService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/departments")
+@Api(tags = {"Departments"}, description = "API Department")
 public class DepartmentResource {
 	
 	@Autowired

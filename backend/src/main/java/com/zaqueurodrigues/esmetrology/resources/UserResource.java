@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zaqueurodrigues.esmetrology.dtos.UserViewDTO;
 import com.zaqueurodrigues.esmetrology.services.UserService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping(value = "/users")
+@Api(tags = {"Users"}, description = "API User")
 public class UserResource {
 	
 	@Autowired
