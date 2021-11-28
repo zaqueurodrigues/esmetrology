@@ -8,7 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
 import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
@@ -37,7 +36,6 @@ public class InstrumentService {
 	@Autowired
 	private InstrumentMapper instrumentMapper;
 
-	@Transactional(readOnly = true)
 	public Page<InstrumentViewDTO> findAll(String tag, Long departmentId, String description, Pageable pageable) {
 
 		User user = authService.authenticated();
@@ -57,7 +55,6 @@ public class InstrumentService {
 
 	}
 
-	@Transactional
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
 		Instrument instrument = instrumentMapper.parseInstrument(dto);
 		if(dto.getStatus() == null) {
@@ -78,7 +75,6 @@ public class InstrumentService {
 
 	}
 
-	@Transactional
 	public InstrumentViewDTO update(Long id, InstrumentSaveDTO dto) {
 		dto.setId(id);
 		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
