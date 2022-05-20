@@ -12,6 +12,8 @@ import com.zaqueurodrigues.esmetrology.entities.Instrument;
 
 public interface InstrumentRepository extends JpaRepository<Instrument, Long>{
 
+	List<Instrument> findByDepartment(Department department);
+	
 	Page<Instrument> findByDepartment(Department department, Pageable pageable);
 	
 	@Query("SELECT DISTINCT obj FROM Instrument obj JOIN obj.department dep WHERE "
@@ -22,4 +24,5 @@ public interface InstrumentRepository extends JpaRepository<Instrument, Long>{
 	
 	@Query("SELECT obj FROM Instrument obj JOIN FETCH obj.department WHERE obj IN :instruments")
 	List<Instrument> findInstrumentWithDepartment(List<Instrument> instruments);
+	
 }

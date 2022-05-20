@@ -1,6 +1,8 @@
 package com.zaqueurodrigues.esmetrology.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,6 +31,9 @@ public class InstrumentService {
 
 	@Autowired
 	private DepartmentRepository departmentRepository;
+	
+	@Autowired
+	private DepartmentService departmentService;
 
 	@Autowired
 	private AuthService authService;
@@ -53,6 +58,28 @@ public class InstrumentService {
 
 		return page.map(inst -> instrumentMapper.parseViewDto(inst));
 
+	}
+	
+	public InstrumentViewDTO findById(Long id) {
+		
+		Instrument inst = instrumentRepository.getById(id);
+		
+		if (inst == null) {
+			throw new ResourceNotFoundException("Instrument not found!");
+		}
+		
+		InstrumentViewDTO dto = instrumentMapper.parseViewDto(inst);
+		
+		return dto;
+		
+	}
+	
+	public List<InstrumentViewDTO> findByDepartment(Long departmentId) {
+		
+		List<Instrument> instruments = instrumentRepository.findByDepartment(departmentRepository.getById(departmentId));
+		
+		return instruments.stream().map(i -> instrumentMapper.parseViewDto(i)).collect(Collectors.toList());
+		
 	}
 
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
