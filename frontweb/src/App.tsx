@@ -1,9 +1,12 @@
 import './assets/styles/custom.scss';
 import './App.css';
+import Main from 'pages/Main';
 
-function App() {
+const App = () => {
   return (
-    <h1 className='text-warning'  >Setup Initial Project</h1>
+    <>
+      <Main></Main>
+    </>
   );
 }
 
