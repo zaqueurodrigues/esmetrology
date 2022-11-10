@@ -1,4 +1,5 @@
 import Navbar from "components/Navbar";
+import Instrument from "pages/Instrument";
 import './styles.css';
 
 const Main = () => {
@@ -6,7 +7,7 @@ const Main = () => {
         <div className="main-container">
             <Navbar></Navbar>
             <div className="main-content">
-                <h1>Conteúdo</h1>
+                <Instrument/>
             </div>
         </div>
     );
