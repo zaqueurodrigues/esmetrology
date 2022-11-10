@@ -1,5 +1,6 @@
 import './styles.css';
 import 'bootstrap/js/src/collapse.js';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -16,31 +17,30 @@ const Navbar = () => {
             </button> */}
             <ul >
                 <li>
-                    <a href="link" className="nav-item active">
+                    <NavLink to="/instruments" className="nav-item">
                         INSTRUMENTOS
-                    </a>
+                    </NavLink> 
                 </li>
                 <li>
-                    <a href="link" className="nav-item">
+                    <NavLink to="/departments" className="nav-item">
                         SETORES
-                    </a>
+                    </NavLink> 
                 </li>
                 <li>
-                    <a href="link" className="nav-item">
+                    <NavLink to="/certificates"  className="nav-item">
                         CERTIFICADOS
-                    </a>
+                    </NavLink> 
                 </li>
                 <li>
-                    <a href="link" className="nav-item">
-                        USUÁRIOS
-                    </a>
-                </li>
-                <li>
-                    <a href="link" className="nav-item">
+                    <NavLink to="/labs"  className="nav-item">
                         LABORATÓRIOS
-                    </a>
+                    </NavLink> 
                 </li>
-
+                <li>
+                    <NavLink to="/users" className="nav-item">
+                        USUÁRIOS
+                    </NavLink> 
+                </li>
                 <li>
                     <a href="link" className="nav-item user-text">
                         Oi, Zaqueu

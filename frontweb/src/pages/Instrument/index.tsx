@@ -1,5 +1,4 @@
 import InstrumentCard from "components/InstrumentCard";
-import Navbar from "components/Navbar";
 import './styles.css';
 
 const Instrument = () => {
