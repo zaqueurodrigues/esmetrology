@@ -1,0 +1,20 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+@media (min-width: 1200px) {
+    .main-container {
+        flex-direction: row;
+    }
+
+    .main-content {
+        flex: 1;
+    }
+
+
+}
