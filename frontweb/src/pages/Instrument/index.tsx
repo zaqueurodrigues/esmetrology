@@ -1,5 +1,7 @@
 import ButtonBase from "components/ButtonBase";
 import InstrumentCard from "components/InstrumentCard";
+import Search from "components/Search";
+import TitleCard from "components/TitleCard";
 import { Instrument } from "types/instrument";
 import './styles.css';
 
@@ -23,14 +25,16 @@ const InstrumentPage = () => {
 
 
     return (
-        <div className="my-4">
-
-            <div>
-                <h1>Instrumentos</h1>
+        <div>
+            <div className="head-content">
+                <div className="title">
+                    <h1>Instrumentos</h1>
+                </div>
                 <div className="middle-head-content">
-                    <h1></h1>
+                    <Search />
                     <ButtonBase text="Adicionar Instrumento" />
                 </div>
+                <TitleCard />
             </div>
 
             <div>

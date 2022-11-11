@@ -1,5 +1,6 @@
-li {
-    list-style-type: none;
+p {
+    color: #000;
+    font-size: 18px;
 }
 
 .inst-card {

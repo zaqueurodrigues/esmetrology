@@ -8,10 +8,10 @@ type Props = {
 const InstrumentCard = ( { instrument } : Props) => {
     return (
         <div className="base-card inst-card">
-            <li>{instrument.type}</li>
-            <li>{instrument.tag}</li>
-            <li>{instrument.range}</li>
-            <li>{instrument.status}</li>
+            <p>{instrument.type}</p>
+            <p>{instrument.tag}</p>
+            <p>{instrument.range}</p>
+            <p>{instrument.status}</p>
         </div>
 
     );
