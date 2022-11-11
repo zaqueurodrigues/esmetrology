@@ -19,9 +19,8 @@ a, a:hover {
 .base-card {
     display: flex;
     justify-content: space-around;
-    height: 60px;
+    height: 40px;
     align-items: center;
-    background-color: #fff;
     box-shadow: 0 px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }

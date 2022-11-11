@@ -1,13 +1,17 @@
 import './styles.css';
+import { Instrument } from 'types/instrument';
 
-const InstrumentCard = () => {
+type Props = {
+    instrument: Instrument;
+}
+
+const InstrumentCard = ( { instrument } : Props) => {
     return (
         <div className="base-card inst-card">
-            <li>Manômetro</li>
-            <li>???</li>
-            <li>COH2LFGT14</li>
-            <li>52.34.200054</li>
-            <li>ATIVO</li>
+            <li>{instrument.type}</li>
+            <li>{instrument.tag}</li>
+            <li>{instrument.range}</li>
+            <li>{instrument.status}</li>
         </div>
 
     );
