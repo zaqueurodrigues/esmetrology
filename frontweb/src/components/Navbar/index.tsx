@@ -1,6 +1,7 @@
 import './styles.css';
 import 'bootstrap/js/src/collapse.js';
 import { NavLink } from 'react-router-dom';
+import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
 
 const Navbar = () => {
     return (
@@ -18,32 +19,33 @@ const Navbar = () => {
             <ul >
                 <li>
                     <NavLink to="/instruments" className="nav-item">
-                        INSTRUMENTOS
-                    </NavLink> 
+                        <Calculator className="base-icon" size={32} /> INSTRUMENTOS
+                    </NavLink>
                 </li>
                 <li>
                     <NavLink to="/departments" className="nav-item">
-                        SETORES
-                    </NavLink> 
+                        <Buildings className="base-icon" size={32} /> SETORES
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/certificates"  className="nav-item">
-                        CERTIFICADOS
-                    </NavLink> 
+                    <NavLink to="/certificates" className="nav-item">
+                        <Article className="base-icon" size={32} /> CERTIFICADOS
+                    </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/labs"  className="nav-item">
-                        LABORATÓRIOS
-                    </NavLink> 
+                    <NavLink to="/labs" className="nav-item">
+                        <Flask className="base-icon" size={32} /> LABORATÓRIOS
+                    </NavLink>
                 </li>
                 <li>
                     <NavLink to="/users" className="nav-item">
-                        USUÁRIOS
-                    </NavLink> 
+                        <Users className="base-icon" size={32} /> USUÁRIOS
+                    </NavLink>
                 </li>
                 <li>
                     <a href="link" className="nav-item user-text">
-                        Oi, Zaqueu
+                        Oi, Zaqueu!
+                        <SignOut className="base-icon" size={32} />
                     </a>
                 </li>
             </ul>

@@ -1,10 +1,13 @@
 import './styles.css';
+import { MagnifyingGlass } from 'phosphor-react';
 
 
 const Search = () => {
     return (
         <div>
-           <input type="text" placeholder="..."></input>
+            <input type="text" placeholder="...">
+                
+            </input> 
         </div>
     );
 }

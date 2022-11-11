@@ -24,7 +24,10 @@ ul {
 }
 
 .user-text {
-    font-weight: 300;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    justify-content: space-between !important;
 }
 
 .user-text:hover {
