@@ -3,11 +3,11 @@ import './styles.css';
 
 const TitleCard = () => {
     return (
-        <div className="base-card title-card">
-           <li>Tipo</li>
-           <li>TAG</li>
-           <li>Range</li>
-           <li>Status</li>
+        <div className="base-card title-card-container">
+           <div className="title-card-itens">Tipo</div>
+           <div className="title-card-itens">TAG</div>
+           <div className="title-card-itens">Range</div>
+           <div className="title-card-itens">Status</div>
         </div>
     );
 }

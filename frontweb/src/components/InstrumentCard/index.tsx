@@ -5,15 +5,14 @@ type Props = {
     instrument: Instrument;
 }
 
-const InstrumentCard = ( { instrument } : Props) => {
+const InstrumentCard = ({ instrument }: Props) => {
     return (
-        <div className="base-card inst-card">
-            <p>{instrument.type}</p>
-            <p>{instrument.tag}</p>
-            <p>{instrument.range}</p>
-            <p>{instrument.status}</p>
+        <div className="base-card card-container">
+            <div className="card-itens">{instrument.type}</div>
+            <div className="card-itens">{instrument.tag}</div>
+            <div className="card-itens">{instrument.range}</div>
+            <div className="card-itens">{instrument.status}</div>
         </div>
-
     );
 }
 

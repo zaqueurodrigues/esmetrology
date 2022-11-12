@@ -1,5 +1,6 @@
 import ButtonBase from "components/ButtonBase";
 import InstrumentCard from "components/InstrumentCard";
+import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
 import { Instrument } from "types/instrument";
@@ -45,6 +46,9 @@ const InstrumentPage = () => {
                 <InstrumentCard instrument={equipamento} />
                 <InstrumentCard instrument={equipamento} />
                 <InstrumentCard instrument={equipamento} />
+            </div>
+            <div>
+                <Pagination />
             </div>
         </div>
     );

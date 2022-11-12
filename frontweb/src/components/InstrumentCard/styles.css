@@ -1,9 +1,10 @@
-p {
-    color: #000;
-    font-size: 18px;
-}
-
-.inst-card {
+.card-container {
     background-color: #fff;
     margin-bottom: 12px;
 }
+
+.card-itens{
+    color: #000;
+}
+
+

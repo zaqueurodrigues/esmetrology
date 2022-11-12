@@ -1,10 +1,9 @@
-li {
-    list-style-type: none;
-    color: #A3A7B4;
-}
-
-.title-card {
+.title-card-container {
     height: 40px;
     background-color: #F5F7FB;
     margin-bottom: 12px;
+}
+
+.title-card-itens {
+    color: #A3A7B4;
 }
