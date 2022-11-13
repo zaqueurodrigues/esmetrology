@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.services.InstrumentService;
 
 import io.swagger.annotations.Api;

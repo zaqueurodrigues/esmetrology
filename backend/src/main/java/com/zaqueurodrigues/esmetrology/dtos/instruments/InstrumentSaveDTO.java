@@ -1,4 +1,4 @@
-package com.zaqueurodrigues.esmetrology.dtos;
+package com.zaqueurodrigues.esmetrology.dtos.instruments;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,6 +13,9 @@ public class InstrumentSaveDTO {
 	private Long id;
 	@NotBlank
 	private String tag;
+	@NotBlank
+	private String serie;
+	private String mark;
 	@NotBlank
 	private String description;
 	@NotBlank

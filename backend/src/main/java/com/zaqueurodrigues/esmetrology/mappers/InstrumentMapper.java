@@ -2,8 +2,8 @@ package com.zaqueurodrigues.esmetrology.mappers;
 
 import org.mapstruct.Mapper;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 
 @Mapper(componentModel = "spring")

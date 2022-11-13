@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.User;
@@ -45,7 +45,7 @@ public class InstrumentService {
 
 		User user = authService.authenticated();
 
-		if (!user.hasRole("ROLE_ADMIN")) {
+		if (user != null && !user.hasRole("ROLE_ADMIN")) {
 
 			Department department = departmentRepository.getById(user.getDepartment().getId());
 			Page<Instrument> result = instrumentRepository.findByDepartment(department, pageable);
@@ -62,15 +62,13 @@ public class InstrumentService {
 	
 	public InstrumentViewDTO findById(Long id) {
 		
-		Instrument inst = instrumentRepository.getById(id);
-		
-		if (inst == null) {
+		Optional<Instrument> opt = instrumentRepository.findById(id);
+
+		if (!opt.isPresent()) {
 			throw new ResourceNotFoundException("Instrument not found!");
 		}
-		
-		InstrumentViewDTO dto = instrumentMapper.parseViewDto(inst);
-		
-		return dto;
+
+		return instrumentMapper.parseViewDto(opt.get());
 		
 	}
 	
