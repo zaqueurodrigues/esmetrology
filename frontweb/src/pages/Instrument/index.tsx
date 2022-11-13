@@ -3,29 +3,35 @@ import InstrumentCard from "components/InstrumentCard";
 import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
+import { Link } from "react-router-dom";
 import { Instrument } from "types/instrument";
+import { useState, useEffect } from 'react';
+import { SpringPage } from "types/vendor/spring";
+import axios from "axios";
+import { AxiosParams } from "types/vendor/axios";
+import { BASE_URL } from "util/requests";
 import './styles.css';
+
 
 const InstrumentPage = () => {
 
-    const equipamento: Instrument = {
-        id: 2,
-        tag: '52.34.20012',
-        serie: '522456-12',
-        fabricante: 'Wika',
-        description: 'Manômetro Analógico',
-        type: 'Manômetro',
-        range: '0 - 10 kgf/cm²',
-        frequency: '6 meses',
-        lastCalibration: '2022-97-14T10:00:00Z',
-        status: 'ATIVO',
-        note: 'Manômetro alocado para monitoramento da casa de bombas',
-        department: {
-            id: 7,
-            name: 'Segurança do Trabalho',
-        },
-    };
+    const [page, setPage] = useState<SpringPage<Instrument>>();
 
+    useEffect(() => {
+        const params: AxiosParams = {
+            method: "GET",
+            url: `${BASE_URL}/instruments`,
+            params: {
+                page: 0,
+                size: 5
+            },
+        }
+
+        axios(params)
+            .then(response => {
+                setPage(response.data);
+            });
+    }, []);
 
     return (
         <div>
@@ -41,14 +47,15 @@ const InstrumentPage = () => {
             </div>
 
             <div>
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-                <InstrumentCard instrument={equipamento} />
-               
+                {page?.content.map((instrument: Instrument) => (
+                        <Link to={`/instruments/1`}   key={instrument.id}>
+                            <span data-bs-toggle="collapse" data-bs-target={`#id`} aria-expanded="false" aria-controls="collapseCard">
+                                <InstrumentCard instrument={instrument} />
+                            </span>
+                        </Link>
+                    )
+                )}
+
             </div>
             <div>
                 <Pagination />

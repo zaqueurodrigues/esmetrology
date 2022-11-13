@@ -1,3 +1,4 @@
+import InstrumentCard from "components/InstrumentCard";
 import Navbar from "components/Navbar";
 import Certificate from "pages/Certificate";
 import Department from "pages/Department";
@@ -13,8 +14,10 @@ const Main = () => {
             <Navbar />
             <div className="main-content">
                 <Switch>
-                    <Route path="/instruments">
+                    <Route path="/instruments" exact>
                         <Instrument />
+                    </Route>
+                    <Route path="/instruments/:id" component={Instrument}>
                     </Route>
                     <Route path="/departments">
                         <Department />
