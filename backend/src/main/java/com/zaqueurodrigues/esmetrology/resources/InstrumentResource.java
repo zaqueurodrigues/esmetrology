@@ -51,14 +51,10 @@ public class InstrumentResource {
 		return ResponseEntity.ok(service.findAll(tag, departmentId, description, pageable));
 	}
 	
-	
-	@GetMapping (value = "{/id}")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Retorna um instrumento"),
-	})
-	@ApiOperation ("Busca um instrumento por id")
-	public ResponseEntity<InstrumentViewDTO> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(service.findById(id));
+	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Busca um instrumento por id")
+	public ResponseEntity<InstrumentViewDTO> findById(@PathVariable Long id){
+		return ResponseEntity.ok().body(service.findById(id));
 	}
 	
 	
