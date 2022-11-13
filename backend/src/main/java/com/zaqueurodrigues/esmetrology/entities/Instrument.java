@@ -27,6 +27,8 @@ public class Instrument  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tag;
+	private String serie;
+	private String mark;
 	private String description;
 	private String type;
 	private String range;
