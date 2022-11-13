@@ -11,6 +11,8 @@ const InstrumentPage = () => {
     const equipamento: Instrument = {
         id: 2,
         tag: '52.34.20012',
+        serie: '522456-12',
+        fabricante: 'Wika',
         description: 'Manômetro Analógico',
         type: 'Manômetro',
         range: '0 - 10 kgf/cm²',
@@ -46,6 +48,7 @@ const InstrumentPage = () => {
                 <InstrumentCard instrument={equipamento} />
                 <InstrumentCard instrument={equipamento} />
                 <InstrumentCard instrument={equipamento} />
+               
             </div>
             <div>
                 <Pagination />

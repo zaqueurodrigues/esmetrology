@@ -1,0 +1,18 @@
+.btn-container {
+    display: flex;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.btn h6 {
+    color: #fff; 
+}
+
+.btn-edit {
+    width: 105px;
+    margin-bottom: 1px;
+}

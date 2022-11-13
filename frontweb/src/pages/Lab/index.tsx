@@ -2,7 +2,7 @@ import './styles.css';
 
 const Lab = () => {
     return (
-        <div className="my-4">
+        <div>
             <h1>Laboratórios</h1>
         </div>
     );

@@ -2,7 +2,7 @@ import './styles.css';
 
 const Department = () => {
     return (
-        <div className="my-4">
+        <div>
             <h1>Setores</h1>
         </div>
     );

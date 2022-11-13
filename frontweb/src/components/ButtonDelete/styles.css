@@ -1,0 +1,17 @@
+.btn-container {
+    display: flex;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+}
+
+.btn h6 {
+    color: #fff; 
+}
+
+.btn-delete {
+    width: 105px;
+    margin-top: 1px;
+} 
