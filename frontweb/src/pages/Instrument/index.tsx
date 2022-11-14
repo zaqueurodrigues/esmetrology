@@ -7,7 +7,7 @@ import { Instrument } from "types/instrument";
 import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
 import { AxiosRequestConfig } from "axios";
-import { BASE_URL, requestBackend } from "util/requests";
+import { requestBackend } from "util/requests";
 import CardLoader from "../../components/CardLoader";
 import ButtonAdd from "components/Buttons/ButtonAdd";
 
@@ -20,7 +20,6 @@ const InstrumentPage = () => {
     useEffect(() => {
         const params: AxiosRequestConfig = {
             method: "GET",
-            baseURL: BASE_URL,
             url: "/instruments",
             params: {
                 page: 0,

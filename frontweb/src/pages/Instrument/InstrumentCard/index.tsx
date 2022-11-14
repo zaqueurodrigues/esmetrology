@@ -44,20 +44,20 @@ const InstrumentCard = ({ instrument }: Props) => {
             <div className="base-card card-body">
                 <div className="card-details">
                     <div className="card-details-info-left">
-                        <div className="card-itens">Descrição: {equipament?.description}</div>
-                        <div className="card-itens">Fabricante: {equipament?.fabricante}</div>
-                        <div className="card-itens">Setor: {equipament?.department.name}</div>
+                        <div>Descrição: {equipament?.description}</div>
+                        <div>Fabricante: {equipament?.fabricante}</div>
+                        <div>Setor: {equipament?.department.name}</div>
                     </div>
 
                     <div className="card-details-info-right">
-                        <div className="card-itens">Range: {equipament?.range}</div>
-                        <div className="card-itens">Frequência: {equipament?.frequency}</div>
+                        <div>Range: {equipament?.range}</div>
+                        <div>Frequência: {equipament?.frequency}</div>
                     </div>
                 </div>
 
                 <div className="card-details-buttons">
-                    <div className="card-itens"> <ButtonEdit /> </div>
-                    <div className="card-itens"> <ButtonDelete /> </div>
+                    <div> <ButtonEdit /> </div>
+                    <div> <ButtonDelete /> </div>
                 </div>
             </div>
         </div>
