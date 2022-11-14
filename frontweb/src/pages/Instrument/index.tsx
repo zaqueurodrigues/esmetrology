@@ -11,11 +11,13 @@ import axios from "axios";
 import { AxiosParams } from "types/vendor/axios";
 import { BASE_URL } from "util/requests";
 import './styles.css';
+import CardLoader from "./CardLoader";
 
 
 const InstrumentPage = () => {
 
     const [page, setPage] = useState<SpringPage<Instrument>>();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const params: AxiosParams = {
@@ -27,9 +29,12 @@ const InstrumentPage = () => {
             },
         }
 
+        setIsLoading(true);
         axios(params)
             .then(response => {
                 setPage(response.data);
+            }).finally(() => {
+                setIsLoading(false);
             });
     }, []);
 
@@ -47,14 +52,15 @@ const InstrumentPage = () => {
             </div>
 
             <div>
-                {page?.content.map((instrument: Instrument) => (
-                        <Link to={`/instruments/1`}   key={instrument.id}>
-                            <span data-bs-toggle="collapse" data-bs-target={`#id`} aria-expanded="false" aria-controls="collapseCard">
-                                <InstrumentCard instrument={instrument} />
-                            </span>
-                        </Link>
-                    )
-                )}
+                {isLoading ? <CardLoader /> : (
+                    page?.content.map((instrument: Instrument) => (
+                    <Link to={`/instruments/${instrument?.id}`} key={instrument.id}>
+                        <span data-bs-toggle="collapse" data-bs-target={`#id`} aria-expanded="false" aria-controls="collapseCard">
+                            <InstrumentCard instrument={instrument} />
+                        </span>
+                    </Link>
+                )
+                ))}
 
             </div>
             <div>
