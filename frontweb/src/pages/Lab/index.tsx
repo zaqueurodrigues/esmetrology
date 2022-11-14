@@ -1,6 +1,5 @@
-import './styles.css';
 
-const Lab = () => {
+const LabPage = () => {
     return (
         <div>
             <h1>Laboratórios</h1>
@@ -8,4 +7,4 @@ const Lab = () => {
     );
 }
 
-export default Lab;
+export default LabPage;

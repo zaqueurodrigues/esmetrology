@@ -1,12 +1,12 @@
-import './styles.css';
 import { PlusCircle } from 'phosphor-react';
+
+import './styles.css';
 
 type Props = {
     text: string;
 }
 
-const ButtonBase = ({ text }: Props) => {
-
+const ButtonAdd = ({ text }: Props) => {
     return (
         <div className="btn-container">
             <button className="btn btn-primary">
@@ -16,7 +16,6 @@ const ButtonBase = ({ text }: Props) => {
         </div>
 
     );
-
 }
 
-export default ButtonBase;
+export default ButtonAdd;

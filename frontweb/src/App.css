@@ -6,12 +6,18 @@
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 700;
     margin-bottom: 0;
 }
 
-a, a:hover {
+a,
+a:hover {
     text-decoration: none;
     color: unset;
 }
@@ -35,9 +41,22 @@ a, a:hover {
     letter-spacing: -0.015em;
     color: #263238;
     height: 50px;
-  }
-   
-  .base-input::placeholder {
+}
+
+.base-input::placeholder {
     color: #9E9E9E;
-  }
-  
+}
+
+.title {
+    margin-bottom: 32px;
+}
+
+.head-content {
+    margin-bottom: 20px;
+}
+
+.middle-head-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}

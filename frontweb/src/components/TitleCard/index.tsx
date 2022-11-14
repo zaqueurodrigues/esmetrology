@@ -1,15 +1,18 @@
 import './styles.css';
 
+type Props = {
+    columns: string[];
+}
 
-const TitleCard = () => {
+const TitleCard = ({ columns }: Props) => {
+
     return (
         <div className="base-card title-card-container">
-            <div className="title-card-itens">Tipo</div>
-            <div className="title-card-itens">TAG</div>
-            <div className="title-card-itens">N° de Série</div>
-            <div className="title-card-itens">Status</div>
+            {columns.map((text) => (
+                <div className="title-card-itens">{text}</div>
+            ))
+            }
         </div>
     );
 }
-
 export default TitleCard;

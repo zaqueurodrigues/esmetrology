@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import ButtonBase from 'components/ButtonBase';
+import ButtonBase from 'components/Buttons/ButtonAdd';
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import { getAuthData, requestBackendLogin, saveAuthData } from 'util/requests';

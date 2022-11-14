@@ -7,7 +7,7 @@ const ButtonDelete = () => {
         <div className="btn-container">
             <button className="btn btn-danger btn-delete">
                 <Trash size={24} className="base-icon" />
-                <h6>Deletar</h6>
+                <h6>APAGAR</h6>
             </button>
         </div>
 

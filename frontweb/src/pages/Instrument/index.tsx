@@ -1,5 +1,4 @@
-import ButtonBase from "components/ButtonBase";
-import InstrumentCard from "components/InstrumentCard";
+import InstrumentCard from "pages/Instrument/InstrumentCard";
 import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
@@ -7,10 +6,10 @@ import { Link } from "react-router-dom";
 import { Instrument } from "types/instrument";
 import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
-import axios, { AxiosRequestConfig } from "axios";
-import { BASE_URL } from "util/requests";
-import './styles.css';
-import CardLoader from "./CardLoader";
+import { AxiosRequestConfig } from "axios";
+import { BASE_URL, requestBackend } from "util/requests";
+import CardLoader from "../../components/CardLoader";
+import ButtonAdd from "components/Buttons/ButtonAdd";
 
 
 const InstrumentPage = () => {
@@ -30,7 +29,7 @@ const InstrumentPage = () => {
         }
 
         setIsLoading(true);
-        axios(params)
+        requestBackend(params)
             .then(response => {
                 setPage(response.data);
             }).finally(() => {
@@ -39,34 +38,35 @@ const InstrumentPage = () => {
     }, []);
 
     return (
-        <div>
+        <>
             <div className="head-content">
                 <div className="title">
                     <h1>Instrumentos</h1>
                 </div>
+
                 <div className="middle-head-content">
                     <Search />
-                    <ButtonBase text="Adicionar Instrumento" />
+                    <ButtonAdd text="Adicionar Instrumento" />
                 </div>
-                <TitleCard />
+
+                <TitleCard columns={['tipo', 'tag', 'série', 'status']} />
             </div>
 
             <div>
-                {isLoading ? <CardLoader /> : (
-                    page?.content.map((instrument: Instrument) => (
-                    <Link to={`/main/instruments/1`} key={instrument.id}>
+                { isLoading ? <CardLoader /> : (
+                    page?.content.map( (instrument: Instrument) => (
+                    <Link to={`/main/instruments/2`} key={instrument.id}>
                         <span data-bs-toggle="collapse" data-bs-target={`#id`} aria-expanded="false" aria-controls="collapseCard">
                             <InstrumentCard instrument={instrument} />
                         </span>
                     </Link>
-                )
-                ))}
-
+                ))) }
             </div>
+
             <div>
                 <Pagination />
             </div>
-        </div>
+        </>
     );
 }
 

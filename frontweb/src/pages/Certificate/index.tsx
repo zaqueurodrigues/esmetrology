@@ -1,6 +1,5 @@
-import './styles.css';
 
-const Department = () => {
+const DepartmentPage = () => {
     return (
         <div>
             <h1>Certificados</h1>
@@ -8,4 +7,4 @@ const Department = () => {
     );
 }
 
-export default Department;
+export default DepartmentPage;

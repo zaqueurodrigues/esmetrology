@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 
 type LoginResponse = {
@@ -43,6 +43,10 @@ export const requestBackendLogin = (loginData: LoginData) => {
         headers
     })
 
+}
+
+export const requestBackend = (config: AxiosRequestConfig) => {
+    return axios({...config, baseURL: BASE_URL});
 }
 
 export const saveAuthData = (obj: LoginResponse) => {
