@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import { Instrument } from "types/instrument";
 import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
-import axios from "axios";
-import { AxiosParams } from "types/vendor/axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "util/requests";
 import './styles.css';
 import CardLoader from "./CardLoader";
@@ -20,13 +19,14 @@ const InstrumentPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        const params: AxiosParams = {
+        const params: AxiosRequestConfig = {
             method: "GET",
-            url: `${BASE_URL}/instruments`,
+            baseURL: BASE_URL,
+            url: "/instruments",
             params: {
                 page: 0,
                 size: 5
-            },
+            }
         }
 
         setIsLoading(true);

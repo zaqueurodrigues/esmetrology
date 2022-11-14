@@ -6,23 +6,16 @@ import './styles.css';
 const Auth = () => {
 
     return (
-
         <div className="auth-container">
             <div className="auth-banner-container">
-                <h1>ESMetrology</h1>
+                <h1>ESMETROLOGY</h1>
                 <AuthImage />
             </div>
 
             <div className="auth-form-container">
                 <Login/>
             </div>
-
         </div>
-
-
-
-
-
     );
 }
 

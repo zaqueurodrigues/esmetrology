@@ -1,4 +1,3 @@
-import InstrumentCard from "components/InstrumentCard";
 import Navbar from "components/Navbar";
 import Certificate from "pages/Certificate";
 import Department from "pages/Department";
