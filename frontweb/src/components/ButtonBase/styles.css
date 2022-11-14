@@ -14,7 +14,7 @@
 
 .btn h6 {
     color: #fff;
-    font-size: 14px;
+    text-transform: uppercase;
 }
 
 @media (min-width: 576px) {
