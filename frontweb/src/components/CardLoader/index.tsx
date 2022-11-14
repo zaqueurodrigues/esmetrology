@@ -4,13 +4,14 @@ import './styles.css';
 const CardLoader = () => (
     <div className="card-loader-container">
         <ContentLoader
-            speed={2}
-            width={1100}
-            height={84}
-            viewBox="0 0 1100 84"
-            backgroundColor="#ffffff"
-            foregroundColor="#ecebeb">
-            <rect x="0" y="0" rx="0" ry="0" width="100%" height="50" />
+            viewBox="0 0 400 160"
+            height={160}
+            width={400}
+            backgroundColor="transparent"
+        >
+            <circle cx="150" cy="86" r="8" />
+            <circle cx="194" cy="86" r="8" />
+            <circle cx="238" cy="86" r="8" />
         </ContentLoader>
     </div>
 )
