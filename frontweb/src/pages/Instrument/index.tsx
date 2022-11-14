@@ -54,7 +54,7 @@ const InstrumentPage = () => {
             <div>
                 {isLoading ? <CardLoader /> : (
                     page?.content.map((instrument: Instrument) => (
-                    <Link to={`/instruments/${instrument?.id}`} key={instrument.id}>
+                    <Link to={`/main/instruments/1`} key={instrument.id}>
                         <span data-bs-toggle="collapse" data-bs-target={`#id`} aria-expanded="false" aria-controls="collapseCard">
                             <InstrumentCard instrument={instrument} />
                         </span>

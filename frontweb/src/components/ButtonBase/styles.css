@@ -2,6 +2,11 @@
     display: flex;
 }
 
+.btn-container button {
+    width: 100%;
+    text-align: center;
+}
+
 .btn {
     display: flex;
     align-items: center;
@@ -9,5 +14,11 @@
 
 .btn h6 {
     color: #fff;
-    
+    font-size: 14px;
+}
+
+@media (min-width: 576px) {
+    .btn h6 {
+        font-size: 16px;
+    }
 }

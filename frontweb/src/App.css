@@ -28,3 +28,16 @@ a, a:hover {
     color: #fff;
     font-weight: bold;
 }
+
+.base-input {
+    border-radius: 10px;
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #263238;
+    height: 50px;
+  }
+   
+  .base-input::placeholder {
+    color: #9E9E9E;
+  }
+  

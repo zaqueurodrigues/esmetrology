@@ -5,9 +5,9 @@ const CardLoader = () => (
     <div className="card-loader-container">
         <ContentLoader
             speed={2}
-            width={985}
+            width={1100}
             height={84}
-            viewBox="0 0 985 84"
+            viewBox="0 0 1100 84"
             backgroundColor="#ffffff"
             foregroundColor="#ecebeb">
             <rect x="0" y="0" rx="0" ry="0" width="100%" height="50" />

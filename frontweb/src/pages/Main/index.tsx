@@ -14,26 +14,26 @@ const Main = () => {
             <Navbar />
             <div className="main-content">
                 <Switch>
-                    <Route path="/instruments" exact>
+                    <Route path="/main/instruments">
                         <Instrument />
                     </Route>
-                    <Route path="/instruments/:id" component={Instrument}>
+                    <Route path="/main/instruments/:id" component={Instrument}>
                     </Route>
-                    <Route path="/departments">
+                    <Route path="/main/departments" >
                         <Department />
                     </Route>
-                    <Route path="/certificates">
+                    <Route path="/main/certificates" >
                         <Certificate />
                     </Route>
-                    <Route path="/users">
+                    <Route path="/main/users" >
                         <User />
                     </Route>
-                    <Route path="/labs">
+                    <Route path="/main/labs" >
                         <Lab />
                     </Route>
                 </Switch>
             </div>
-            
+
         </div>
     );
 }
