@@ -1,6 +1,5 @@
 import './styles.css';
 import { Gear } from 'phosphor-react';
-import { isAdmin } from 'util/requests';
 
 const ButtonEdit = () => {
 

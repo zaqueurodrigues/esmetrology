@@ -2,7 +2,7 @@ import './styles.css';
 import 'bootstrap/js/src/collapse.js';
 import { NavLink } from 'react-router-dom';
 import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
-import { getTokenData, isAdmin, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
+import { getTokenData, hasAnyRoles, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
 import { useEffect, useContext } from 'react';
 import history from 'util/history';
 import { AuthContext } from 'AuthContext';
@@ -64,14 +64,14 @@ const Navbar = () => {
                         <Article className="base-icon" size={32} /> CERTIFICADOS
                     </NavLink>
                 </li>
-                {isAdmin() &&
+                {hasAnyRoles(['ROLE_ADMIN']) &&
                     <li>
                         <NavLink to="/labs" className="nav-item">
                             <Flask className="base-icon" size={32} /> LABORATÓRIOS
                         </NavLink>
                     </li>
                 }
-                {isAdmin() &&
+                {hasAnyRoles(['ROLE_ADMIN']) &&
                     <li>
                         <NavLink to="/users" className="nav-item">
                             <Users className="base-icon" size={32} /> USUÁRIOS

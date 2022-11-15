@@ -17,21 +17,21 @@ const Routes = () => (
                     <Auth />
                 </Route>
 
-                <Route path="/instruments">
+                <PrivateRoute path="/instruments">
                     <InstrumentPage />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/instruments/{id}">
+                <PrivateRoute path="/instruments/{id}">
                     <InstrumentPage />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/departments">
+                <PrivateRoute path="/departments">
                     <DepartmentPage />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/certificates">
+                <PrivateRoute path="/certificates">
                     <CertificatePage />
-                </Route>
+                </PrivateRoute>
 
                 <PrivateRoute path="/labs">
                     <LabPage />

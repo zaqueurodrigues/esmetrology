@@ -1,12 +1,11 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useState, useContext } from 'react';
 import { getTokenData, requestBackendLogin, saveAuthData } from 'util/requests';
 import ButtonLogin from 'components/Buttons/ButtonLogin';
-
-import './styles.css';
 import { AuthContext } from 'AuthContext';
 
+import './styles.css';
 
 
 type FormData = {
@@ -14,7 +13,15 @@ type FormData = {
   password: string;
 }
 
+type LocationState = {
+  from: string;
+}
+
 const Login = () => {
+
+  const location = useLocation<LocationState>();
+
+  const { from } = location.state || { from: { pathname: '/instruments' } }
 
   const { authContextData, setAuthContextData } = useContext(AuthContext);
 
@@ -33,7 +40,7 @@ const Login = () => {
         authenticated: true,
         tokenData: getTokenData()
     });
-      history.push('/instruments')
+      history.replace(from)
     })
     .catch(error => {
       setHasError(true)
