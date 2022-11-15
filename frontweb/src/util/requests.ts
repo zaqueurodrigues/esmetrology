@@ -1,8 +1,18 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import jwtDecode from 'jwt-decode';
 import qs from 'qs';
+import history from './history';
+
+type Role = 'ROLE_ADMIN' | 'ROLE_STANDARD';
+
+export type TokenData = {
+    exp: number;
+    user_name: string;
+    authorities: Role[];
+}
 
 type LoginResponse = {
-    access_token: string,
+    access_token: string;
     token_type: string;
     expires_in: number;
     scope: string;
@@ -62,4 +72,52 @@ export const saveAuthData = (obj: LoginResponse) => {
 export const getAuthData = () => {
     const str = localStorage.getItem(tokenKey) ?? "{}";
     return JSON.parse(str) as LoginResponse;
+}
+
+export const removeAuthData = () => {
+    localStorage.removeItem(tokenKey) 
+    
+}
+
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+}, function (error) {
+    if (error.response.status === 401 || error.response.status === 403) {
+        history.push('/')
+    }
+    return Promise.reject(error);
+});
+
+export const getTokenData = (): TokenData | undefined => {
+
+    try {
+        return jwtDecode(getAuthData().access_token) as TokenData;
+    } catch (error) {
+        return undefined;
+    }
+
+}
+
+export const isAuthenticated = (): boolean => {
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.exp * 1000 > Date.now()) ? true : false;
+}
+
+export const isAdmin = (): boolean => {
+    const tokenData = getTokenData();
+
+    return (tokenData && tokenData.authorities.includes('ROLE_ADMIN')) ? true : false;
 }

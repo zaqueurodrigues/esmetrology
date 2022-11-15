@@ -2,8 +2,42 @@ import './styles.css';
 import 'bootstrap/js/src/collapse.js';
 import { NavLink } from 'react-router-dom';
 import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
+import { getAuthData, getTokenData, isAdmin, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
+import { useState, useEffect } from 'react';
+import history from 'util/history';
+
+type AuthData = {
+    authenticated: boolean;
+    tokenData?: TokenData;
+}
 
 const Navbar = () => {
+
+    const [authData, setAuthData] = useState<AuthData>({authenticated: false});
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            setAuthData({
+                authenticated: true,
+                tokenData: getTokenData()
+            });
+        } else {
+            setAuthData({
+                authenticated: false
+            })
+        }
+    }, []);
+
+    const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        removeAuthData();
+        setAuthData({
+            authenticated: false
+        })
+        history.replace('/')
+    }
+
+
     return (
         <nav className="nav-container">
             {/* <button
@@ -32,19 +66,23 @@ const Navbar = () => {
                         <Article className="base-icon" size={32} /> CERTIFICADOS
                     </NavLink>
                 </li>
+                {isAdmin() &&
+                    <li>
+                        <NavLink to="/labs" className="nav-item">
+                            <Flask className="base-icon" size={32} /> LABORATÓRIOS
+                        </NavLink>
+                    </li>
+                }
+                {isAdmin() &&
+                    <li>
+                        <NavLink to="/users" className="nav-item">
+                            <Users className="base-icon" size={32} /> USUÁRIOS
+                        </NavLink>
+                    </li>
+                }
                 <li>
-                    <NavLink to="/labs" className="nav-item">
-                        <Flask className="base-icon" size={32} /> LABORATÓRIOS
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/users" className="nav-item">
-                        <Users className="base-icon" size={32} /> USUÁRIOS
-                    </NavLink>
-                </li>
-                <li>
-                    <a href="link" className="nav-item user-text">
-                        Oi, Zaqueu!
+                    <a href="#logout" onClick={handleLogoutClick} className="nav-item user-text">
+                        {`Olá, ${authData.tokenData?.user_name}!`}
                         <SignOut className="base-icon" size={32} />
                     </a>
                 </li>

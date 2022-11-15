@@ -1,18 +1,29 @@
 .btn-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {
     display: flex;
     align-items: center;
-    border-radius: 5px;
+    justify-content: center;
 }
 
 .btn h6 {
-    color: #fff; 
+    color: #fff;
+    text-transform: uppercase;
 }
 
 .btn-edit {
-    width: 105px;
-    margin-bottom: 1px;
+    width: 50px !important;
+    margin-right: 2px;
+}
+
+.icon-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
 }

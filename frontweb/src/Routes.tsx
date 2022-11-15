@@ -1,14 +1,16 @@
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 import Auth from "pages/Auth";
 import InstrumentPage from "pages/Instrument";
 import DepartmentPage from "pages/Department";
 import CertificatePage from "pages/Certificate";
 import LabPage from "pages/Lab";
 import UserPage from "pages/User";
+import history from "util/history";
+import PrivateRoute from "components/PrivateRoute";
 
 const Routes = () => (
    
-        <BrowserRouter>
+        <Router history={history}>
             <Switch>
                 <Redirect from="/" to="/login" exact />
                 <Route path="/login" exact>
@@ -31,15 +33,15 @@ const Routes = () => (
                     <CertificatePage />
                 </Route>
 
-                <Route path="/labs">
+                <PrivateRoute path="/labs">
                     <LabPage />
-                </Route>
+                </PrivateRoute>
 
-                <Route path="/users">
+                <PrivateRoute path="/users">
                     <UserPage />
-                </Route>
+                </PrivateRoute>
             </Switch>
-        </BrowserRouter>
+        </Router>
 );
 
 export default Routes;

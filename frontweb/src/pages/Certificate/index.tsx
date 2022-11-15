@@ -3,8 +3,36 @@ import Search from "components/Search";
 import TitleCard from "components/TitleCard";
 import ButtonAdd from "components/Buttons/ButtonAdd";
 import Navbar from "components/Navbar";
+import { useState, useEffect } from 'react';
+import { SpringPage } from "types/vendor/spring";
+import { AxiosRequestConfig } from "axios";
+import { requestBackend } from "util/requests";
 
 const CertificatePage = () => {
+
+    const [page, setPage] = useState<SpringPage<any>>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const params: AxiosRequestConfig = {
+            method: "GET",
+            url: "/certificates",
+            withCredentials: true,
+            params: {
+                page: 0,
+                size: 5
+            }
+        }
+
+        setIsLoading(true);
+        requestBackend(params)
+            .then(response => {
+                setPage(response.data);
+            }).finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
         <div className="page-container">
         <div className="page-nav-container">

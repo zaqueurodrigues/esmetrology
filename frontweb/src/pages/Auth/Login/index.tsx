@@ -1,10 +1,11 @@
 import { Link, useHistory } from 'react-router-dom';
-import ButtonBase from 'components/Buttons/ButtonAdd';
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import { requestBackendLogin, saveAuthData } from 'util/requests';
+import ButtonLogin from 'components/Buttons/ButtonLogin';
 
 import './styles.css';
+
 
 
 type FormData = {
@@ -25,7 +26,7 @@ const Login = () => {
     .then(response => {
       saveAuthData(response.data)
       setHasError(false)
-      history.push('/instruments')
+      history.push('/departments')
     })
     .catch(error => {
       setHasError(true)
@@ -75,7 +76,7 @@ const Login = () => {
           Esqueci a senha
         </Link>
         <div className="login-submit">
-          <ButtonBase text="Fazer login" />
+          <ButtonLogin />
         </div>
         <div className="signup-container">
           <span className="not-registered">Não tem Cadastro?</span>

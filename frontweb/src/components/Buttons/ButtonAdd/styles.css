@@ -1,18 +1,21 @@
 .btn-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-container button {
-    width: 100%;
-    text-align: center;
+    width: 100%; 
 }
 
 .btn {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .btn h6 {
+
     color: #fff;
     text-transform: uppercase;
 }

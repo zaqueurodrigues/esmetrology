@@ -1,3 +1,5 @@
+import ButtonDelete from 'components/Buttons/ButtonDelete';
+import ButtonEdit from 'components/Buttons/ButtonEdit';
 import './styles.css';
 
 type Props = {
@@ -7,9 +9,17 @@ type Props = {
 const BaseCard = ({ columns }: Props) => {
     return (
         <div className="base-card card-header-content">
-            {columns.map((text) => (
-                <div>{text}</div>
-            ))}
+            <div className="columns-container">
+                <div className="columns-content">
+                    {columns.map((text) => (
+                        <div>{text}</div>
+                    ))}
+                </div>
+            </div>
+            <div className="buttons-container">
+                <ButtonEdit  />
+                <ButtonDelete />
+            </div>
         </div>
     );
 }

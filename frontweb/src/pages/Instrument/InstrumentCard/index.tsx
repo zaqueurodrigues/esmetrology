@@ -39,28 +39,6 @@ const InstrumentCard = ({ instrument }: Props) => {
                     `${instrument?.status}`,
                 ]
             } />
-
-        <div className="collapse" id="id">
-            <div className="base-card card-body">
-                <div className="card-details">
-                    <div className="card-details-info-left">
-                        <div>Descrição: {equipament?.description}</div>
-                        <div>Fabricante: {equipament?.fabricante}</div>
-                        <div>Setor: {equipament?.department.name}</div>
-                    </div>
-
-                    <div className="card-details-info-right">
-                        <div>Range: {equipament?.range}</div>
-                        <div>Frequência: {equipament?.frequency}</div>
-                    </div>
-                </div>
-
-                <div className="card-details-buttons">
-                    <div> <ButtonEdit /> </div>
-                    <div> <ButtonDelete /> </div>
-                </div>
-            </div>
-        </div>
     </div>
     );
 }

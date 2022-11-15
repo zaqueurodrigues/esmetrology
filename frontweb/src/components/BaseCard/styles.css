@@ -1,6 +1,21 @@
 .card-header-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background-color: #fff;
     margin-top: 10px;
+}
+
+.columns-container{
+    width: 100%;
+}
+
+.columns-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
