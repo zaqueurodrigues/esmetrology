@@ -2,36 +2,34 @@ import './styles.css';
 import 'bootstrap/js/src/collapse.js';
 import { NavLink } from 'react-router-dom';
 import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
-import { getAuthData, getTokenData, isAdmin, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
-import { useState, useEffect } from 'react';
+import { getTokenData, isAdmin, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
+import { useEffect, useContext } from 'react';
 import history from 'util/history';
+import { AuthContext } from 'AuthContext';
 
-type AuthData = {
-    authenticated: boolean;
-    tokenData?: TokenData;
-}
+
 
 const Navbar = () => {
 
-    const [authData, setAuthData] = useState<AuthData>({authenticated: false});
+    const { authContextData, setAuthContextData } = useContext(AuthContext);
 
     useEffect(() => {
         if (isAuthenticated()) {
-            setAuthData({
+            setAuthContextData({
                 authenticated: true,
                 tokenData: getTokenData()
             });
         } else {
-            setAuthData({
+            setAuthContextData({
                 authenticated: false
             })
         }
-    }, []);
+    }, [setAuthContextData]);
 
     const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
         removeAuthData();
-        setAuthData({
+        setAuthContextData({
             authenticated: false
         })
         history.replace('/')
@@ -82,7 +80,7 @@ const Navbar = () => {
                 }
                 <li>
                     <a href="#logout" onClick={handleLogoutClick} className="nav-item user-text">
-                        {`Olá, ${authData.tokenData?.user_name}!`}
+                        {`Olá, ${authContextData.tokenData?.user_name}!`}
                         <SignOut className="base-icon" size={32} />
                     </a>
                 </li>

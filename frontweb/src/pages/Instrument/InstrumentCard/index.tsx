@@ -22,12 +22,12 @@ const InstrumentCard = ({ instrument }: Props) => {
     const { id } = useParams<UrlParams>();
     const [equipament, setEquipament] = useState<Instrument>();
 
-    useEffect(() => {
-        axios.get(`${BASE_URL}/instruments/${id}`)
-            .then(response => {
-                setEquipament(response.data)
-            });
-    }, [id]);
+    //useEffect(() => {
+     //   axios.get(`${BASE_URL}/instruments/1`)
+     //       .then(response => {
+     //           setEquipament(response.data)
+    //        });
+    //}, [id]);
 
     return (
         <div className="card-container">
