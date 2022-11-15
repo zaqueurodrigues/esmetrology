@@ -20,12 +20,12 @@ type UrlParams = {
 const InstrumentCard = ({ instrument }: Props) => {
 
     const { id } = useParams<UrlParams>();
-    const [equipament, setInstrument] = useState<Instrument>();
+    const [equipament, setEquipament] = useState<Instrument>();
 
     useEffect(() => {
         axios.get(`${BASE_URL}/instruments/${id}`)
             .then(response => {
-                setInstrument(response.data)
+                setEquipament(response.data)
             });
     }, [id]);
 

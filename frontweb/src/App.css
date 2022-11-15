@@ -60,3 +60,22 @@ a:hover {
     justify-content: space-between;
     margin-bottom: 12px;
 }
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    padding: 20px;
+}
+
+@media (min-width: 1200px) {
+    .page-container {
+        flex-direction: row;
+    }
+
+    .page-content {
+        flex: 1;
+    }
+}

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
 import { AxiosRequestConfig } from "axios";
-import { BASE_URL, requestBackend } from "util/requests";
+import { requestBackend } from "util/requests";
 import TitleCard from 'components/TitleCard';
 import Pagination from "components/Pagination";
 import Search from "components/Search";
@@ -10,6 +10,7 @@ import ButtonAdd from 'components/Buttons/ButtonAdd';
 import CardLoader from "components/CardLoader";
 import { User } from "types/users";
 import BaseCard from "components/BaseCard";
+import Navbar from "components/Navbar";
 
 const UserPage = () => {
 
@@ -19,8 +20,8 @@ const UserPage = () => {
     useEffect(() => {
         const params: AxiosRequestConfig = {
             method: "GET",
-            baseURL: BASE_URL,
             url: "/users",
+            withCredentials: true,
             params: {
                 page: 0,
                 size: 5
@@ -37,40 +38,48 @@ const UserPage = () => {
     }, []);
 
     return (
-        <>
-            <div className="title">
-                <h1>Usuários</h1>
-            </div>
+        <div className="page-container">
 
-            <div className="middle-head-content">
-                <Search />
-                <ButtonAdd text="Adicionar Usuário" />
-            </div>
+            
+                <div className="page-nav-container">
+                <Navbar />
+                </div>
 
-            <div>
-                <TitleCard columns={['id', 'nome', 'email', 'setor']} />
-            </div>
+                <div className="page-content">
+                <div className="title">
+                    <h1>Usuários</h1>
+                </div>
 
-            <div>
-                { isLoading ? <CardLoader /> : (
-                    page?.content.map((user: User) => (
-                        <Link to={`/main/users/1`} key={user.id}>
-                            <BaseCard columns={
-                                [
-                                    `${user?.id}`,
-                                    `${user?.name}`,
-                                    `${user?.email}`,
-                                    `${user?.department.name}`,
-                                ]
-                            }/>
-                        </Link>
-                    ))) }
-            </div>
+                <div className="middle-head-content">
+                    <Search />
+                    <ButtonAdd text="Adicionar Usuário" />
+                </div>
 
-            <div>
-                <Pagination />
+                <div>
+                    <TitleCard columns={['id', 'nome', 'email', 'setor']} />
+                </div>
+
+                <div>
+                    {isLoading ? <CardLoader /> : (
+                        page?.content.map((user: User) => (
+                            <Link to={`/users/1`} key={user.id}>
+                                <BaseCard columns={
+                                    [
+                                        `${user?.id}`,
+                                        `${user?.name}`,
+                                        `${user?.email}`,
+                                        `${user?.department.name}`,
+                                    ]
+                                } />
+                            </Link>
+                        )))}
+                </div>
+
+                <div>
+                    <Pagination />
+                </div>
             </div>
-        </>
+        </div>
     );
 }
 export default UserPage;

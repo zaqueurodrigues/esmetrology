@@ -18,27 +18,27 @@ const Navbar = () => {
             </button> */}
             <ul >
                 <li>
-                    <NavLink to="/main/instruments" className="nav-item">
+                    <NavLink to="/instruments" className="nav-item">
                         <Calculator className="base-icon" size={32} /> INSTRUMENTOS
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/main/departments" className="nav-item">
+                    <NavLink to="/departments" className="nav-item">
                         <Buildings className="base-icon" size={32} /> SETORES
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/main/certificates" className="nav-item">
+                    <NavLink to="/certificates" className="nav-item">
                         <Article className="base-icon" size={32} /> CERTIFICADOS
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/main/labs" className="nav-item">
+                    <NavLink to="/labs" className="nav-item">
                         <Flask className="base-icon" size={32} /> LABORATÓRIOS
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/main/users" className="nav-item">
+                    <NavLink to="/users" className="nav-item">
                         <Users className="base-icon" size={32} /> USUÁRIOS
                     </NavLink>
                 </li>

@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ButtonBase from 'components/Buttons/ButtonAdd';
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
-import { getAuthData, requestBackendLogin, saveAuthData } from 'util/requests';
+import { requestBackendLogin, saveAuthData } from 'util/requests';
 
 import './styles.css';
 
@@ -18,13 +18,14 @@ const Login = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
+  const history = useHistory();
+
   const onSubmit = (formData: FormData) => {
     requestBackendLogin(formData)
     .then(response => {
       saveAuthData(response.data)
-      const token = getAuthData().access_token;
-      console.log(token)
       setHasError(false)
+      history.push('/instruments')
     })
     .catch(error => {
       setHasError(true)
@@ -70,7 +71,7 @@ const Login = () => {
           />
           <div className="invalid-feedback d-block">{errors.password?.message}</div>
         </div>
-        <Link to="/admin/auth/recover" className="login-link-recover">
+        <Link to="#" className="login-link-recover">
           Esqueci a senha
         </Link>
         <div className="login-submit">
@@ -78,7 +79,7 @@ const Login = () => {
         </div>
         <div className="signup-container">
           <span className="not-registered">Não tem Cadastro?</span>
-          <Link to="/admin/auth/register" className="login-link-register">
+          <Link to="#" className="login-link-register">
             CADASTRAR
           </Link>
         </div>
