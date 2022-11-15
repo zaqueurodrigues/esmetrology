@@ -2,10 +2,11 @@ import './styles.css';
 import 'bootstrap/js/src/collapse.js';
 import { NavLink } from 'react-router-dom';
 import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
-import { getTokenData, hasAnyRoles, isAuthenticated, removeAuthData, TokenData } from 'util/requests';
+import { getTokenData, hasAnyRoles, isAuthenticated } from 'util/auth';
 import { useEffect, useContext } from 'react';
 import history from 'util/history';
 import { AuthContext } from 'AuthContext';
+import { removeAuthData } from 'util/storage';
 
 
 
