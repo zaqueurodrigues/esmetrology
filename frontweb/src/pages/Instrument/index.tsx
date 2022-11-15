@@ -2,7 +2,6 @@ import InstrumentCard from "pages/Instrument/InstrumentCard";
 import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
-import { Link } from "react-router-dom";
 import { Instrument } from "types/instrument";
 import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
@@ -13,7 +12,7 @@ import ButtonAdd from "components/Buttons/ButtonAdd";
 import Navbar from "components/Navbar";
 
 
-const InstrumentPage = () => {
+const Instruments = () => {
 
     const [page, setPage] = useState<SpringPage<Instrument>>();
     const [isLoading, setIsLoading] = useState(false);
@@ -68,4 +67,4 @@ const InstrumentPage = () => {
     );
 }
 
-export default InstrumentPage;
+export default Instruments;

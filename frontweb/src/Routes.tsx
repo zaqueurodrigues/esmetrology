@@ -1,12 +1,13 @@
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 import Auth from "pages/Auth";
-import InstrumentPage from "pages/Instrument";
-import DepartmentPage from "pages/Department";
-import CertificatePage from "pages/Certificate";
-import LabPage from "pages/Lab";
-import UserPage from "pages/User";
+import Instrument from "pages/Instrument";
+import Department from "pages/Department";
+import Certificate from "pages/Certificate";
+import Lab from "pages/Lab";
+import User from "pages/User";
 import history from "util/history";
 import PrivateRoute from "components/PrivateRoute";
+
 
 const Routes = () => (
    
@@ -18,27 +19,27 @@ const Routes = () => (
                 </Route>
 
                 <PrivateRoute path="/instruments">
-                    <InstrumentPage />
+                    <Instrument />
                 </PrivateRoute>
 
                 <PrivateRoute path="/instruments/{id}">
-                    <InstrumentPage />
+                    <Instrument />
                 </PrivateRoute>
 
                 <PrivateRoute path="/departments">
-                    <DepartmentPage />
+                    <Department />
                 </PrivateRoute>
 
                 <PrivateRoute path="/certificates">
-                    <CertificatePage />
+                    <Certificate />
                 </PrivateRoute>
 
                 <PrivateRoute path="/labs">
-                    <LabPage />
+                    <Lab />
                 </PrivateRoute>
 
                 <PrivateRoute path="/users">
-                    <UserPage />
+                    <User />
                 </PrivateRoute>
             </Switch>
         </Router>

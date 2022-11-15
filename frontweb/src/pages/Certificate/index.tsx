@@ -33,6 +33,7 @@ const CertificatePage = () => {
             });
     }, []);
 
+
     return (
         <div className="page-container">
         <div className="page-nav-container">
@@ -46,7 +47,7 @@ const CertificatePage = () => {
                 <Search />
                 <ButtonAdd text="Adicionar Certificado" />
             </div>
-            <TitleCard columns={['id', 'codigo', 'instrumento', 'data de caliobração']} />
+            <TitleCard columns={['id', 'codigo', 'instrumento', 'data de calibração']} />
             <div>
             </div>
             <div>
