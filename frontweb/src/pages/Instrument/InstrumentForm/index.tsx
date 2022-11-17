@@ -13,26 +13,31 @@ const InstrumentForm = () => {
                     <h1 className="instrument-form-title">Dados do Instrumento</h1>
 
                     <form>
-                        <div className="row">
-                            <div className="col-lg-6">
-                                <input type="text" className="base-input form-control" />
-                                <input type="text" className="base-input form-control" />
-                                <input type="text" className="base-input form-control" />
-                                
+                        <div className="row instrument-form-inputs">
+                            <div className="col-lg-6 instrument-form-inputs-left">
+                                <div className="margin-botton-30">
+                                    <input type="text" className="base-input form-control" />
+                                </div>
+                                <div className="margin-botton-30">
+                                    <input type="text" className="base-input form-control" />
+                                </div>
+                                <div className="margin-botton-30">
+                                    <input type="text" className="base-input form-control" />
+                                </div>
                             </div>
-                            <div className="col-lg-6">
-                                <textarea name="" rows={10} className="base-input form-control"></textarea>
+                            <div className="col-lg-6 margin-botton-30">
+                                <div className="margin-botton-30">
+                                    <input type="text" className="base-input form-control" />
+                                </div>
+                                <textarea name="" rows={5} className="base-input form-control h-auto"></textarea>
                             </div>
 
-                            <div>
-                                <button className="btn btn-outline-danger">CANCELAR</button>
-                                <button className="btn btn-primary">SALVAR</button>
+                            <div className="instrument-form-buttons-container">
+                                <button className="btn btn-outline-danger instrument-form-button">CANCELAR</button>
+                                <button className="btn btn-primary instrument-form-button text-white">SALVAR</button>
                             </div>
-
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>
