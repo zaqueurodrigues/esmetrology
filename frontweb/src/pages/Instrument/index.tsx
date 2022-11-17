@@ -65,7 +65,7 @@ const Instruments = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((instrument: Instrument) => (
-                            <BaseCard columns={
+                            <BaseCard key={instrument.id} deletedId={instrument.id} columns={
                                 [
                                     `${instrument?.id}`,
                                     `${instrument?.type}`,
@@ -73,7 +73,7 @@ const Instruments = () => {
                                     `${instrument?.serie}`,
                                     `${instrument?.status}`,
                                 ]
-                            } link={`/instruments/${instrument.id}`} />
+                            } link={`/instruments/${instrument.id}` } />
                         )))}
 
 

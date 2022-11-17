@@ -8,15 +8,17 @@ import './styles.css';
 type Props = {
     columns: string[];
     link?: string;
+    deletedId?: number;
 }
 
-const BaseCard = ({ columns, link = '' }: Props) => {
+const BaseCard = ({ columns, link = '', deletedId = 0 }: Props) => {
+
     return (
         <div className="base-card card-header-content">
             <div className="columns-container">
                 <div className="columns-content">
                     {columns.map((text) => (
-                        <div className={` ${text === 'INACTIVE' ? 'text-danger fw-bold' : ''} ${text === 'ACTIVE' ? 'text-success fw-bold' : ''}`}>
+                        <div key={text} className={`columns-itens  ${text === 'INACTIVE' ? 'text-danger fw-bold' : ''} ${text === 'ACTIVE' ? 'text-success fw-bold' : ''}`}>
                             {text}
                         </div>
                     ))}
@@ -25,7 +27,7 @@ const BaseCard = ({ columns, link = '' }: Props) => {
             {hasAnyRoles(['ROLE_ADMIN']) ? (
                 <div className="buttons-container">
                     <ButtonEdit link={link} />
-                    <ButtonDelete />
+                    <ButtonDelete deletedId={deletedId} />
                 </div>
             ) : (
                 <div className="buttons-container">

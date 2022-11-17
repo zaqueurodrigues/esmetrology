@@ -3,7 +3,7 @@ import { Gear } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
 type Props = {
-    link: String;
+    link?: String;
 }
 
 const ButtonEdit = ({ link } : Props) => {

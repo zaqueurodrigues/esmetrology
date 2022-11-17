@@ -6,3 +6,7 @@
     color: #A3A7B4;
     text-transform: uppercase;
 }
+
+.buttons-invisible {
+    visibility: hidden;
+}
