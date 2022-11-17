@@ -1,0 +1,10 @@
+.instrument-form-card {
+    padding: 20px;
+    background-color: #F0F0F0;
+}
+.instrument-form-title {
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: -0.015em;
+    color: #263238;
+}
