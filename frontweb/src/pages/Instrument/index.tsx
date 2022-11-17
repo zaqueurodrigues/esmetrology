@@ -20,6 +20,10 @@ const Instruments = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        getInstruments();
+    }, []);
+
+    const getInstruments = () => {
         const params: AxiosRequestConfig = {
             method: "GET",
             url: "/instruments",
@@ -37,7 +41,7 @@ const Instruments = () => {
             }).finally(() => {
                 setIsLoading(false);
             });
-    }, []);
+    }
 
     return (
         <div className="page-container">
@@ -53,7 +57,7 @@ const Instruments = () => {
                         <Search />
                     </div>
                     <div className="btn-middle-head-content">
-                        { hasAnyRoles(['ROLE_ADMIN']) &&
+                        {hasAnyRoles(['ROLE_ADMIN']) &&
                             <Link to="/instruments/create">
                                 <ButtonAdd text="Adicionar Instrumento" />
                             </Link>
@@ -73,7 +77,7 @@ const Instruments = () => {
                                     `${instrument?.serie}`,
                                     `${instrument?.status}`,
                                 ]
-                            } link={`/instruments/${instrument.id}` } />
+                            } onDelete={() => getInstruments()} link={`/instruments/${instrument.id}`} />
                         )))}
 
 

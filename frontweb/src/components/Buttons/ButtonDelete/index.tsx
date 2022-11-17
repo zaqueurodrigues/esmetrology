@@ -5,13 +5,14 @@ import { requestBackend } from 'util/requests';
 
 type Props = {
     deletedId?: number;
+    onDelete?: Function;
 };
 
-const ButtonDelete = ( { deletedId = 0 } : Props ) => {
+const ButtonDelete = ({ deletedId = 0, onDelete = () => { } }: Props) => {
 
     const handleDelete = (id: number) => {
 
-        if (!window.confirm("Deseja apagar o instrumento de id " +id)) {
+        if (!window.confirm("Deseja apagar o instrumento de id " + id)) {
             return;
         }
 
@@ -22,14 +23,14 @@ const ButtonDelete = ( { deletedId = 0 } : Props ) => {
         };
 
         requestBackend(config).then(() => {
-            console.log("DELETED ID " +id);
+            onDelete();
         })
 
     }
 
     return (
         <div className="btn-container">
-            <button className="btn btn-danger btn-delete" onClick={() => handleDelete(deletedId) }>
+            <button className="btn btn-danger btn-delete" onClick={() => handleDelete(deletedId)}>
                 <Trash size={24} className="icon-delete" />
             </button>
         </div>

@@ -18,6 +18,10 @@ const UserPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+       getUsers();
+    }, []);
+
+    const getUsers = () => {
         const params: AxiosRequestConfig = {
             method: "GET",
             url: "/users",
@@ -35,7 +39,7 @@ const UserPage = () => {
             }).finally(() => {
                 setIsLoading(false);
             });
-    }, []);
+    }
 
     return (
         <div className="page-container">
@@ -62,7 +66,7 @@ const UserPage = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((user: User) => (
-                                <BaseCard columns={
+                                <BaseCard onDelete={getUsers} columns={
                                     [
                                         `${user?.id}`,
                                         `${user?.name}`,

@@ -9,9 +9,10 @@ type Props = {
     columns: string[];
     link?: string;
     deletedId?: number;
+    onDelete: Function;
 }
 
-const BaseCard = ({ columns, link = '', deletedId = 0 }: Props) => {
+const BaseCard = ({ columns, link = '', deletedId = 0, onDelete}: Props) => {
 
     return (
         <div className="base-card card-header-content">
@@ -27,7 +28,7 @@ const BaseCard = ({ columns, link = '', deletedId = 0 }: Props) => {
             {hasAnyRoles(['ROLE_ADMIN']) ? (
                 <div className="buttons-container">
                     <ButtonEdit link={link} />
-                    <ButtonDelete deletedId={deletedId} />
+                    <ButtonDelete onDelete={onDelete} deletedId={deletedId} />
                 </div>
             ) : (
                 <div className="buttons-container">
