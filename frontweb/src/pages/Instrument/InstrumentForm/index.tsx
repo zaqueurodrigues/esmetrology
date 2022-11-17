@@ -3,8 +3,10 @@ import Navbar from "components/Navbar";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { Instrument } from "types/instrument";
+import { Department } from "types/department";
 import { requestBackend } from "util/requests";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Select from "react-select";
 import './styles.css';
 
 type UrlParams = {
@@ -13,6 +15,14 @@ type UrlParams = {
 
 const InstrumentForm = () => {
 
+    const [ selectDepartment, setSelectDepartment ] = useState<Department[]>([]);
+
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+      ]
+
     const { instrumentId } = useParams<UrlParams>();
 
     const isEditing = instrumentId !== 'create';
@@ -20,6 +30,13 @@ const InstrumentForm = () => {
     const history = useHistory();
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Instrument>();
+
+    useEffect(() => {
+        requestBackend({withCredentials: true, url: '/departments'})
+            .then((response) => {
+                setSelectDepartment(response.data.content)
+            })
+    }, []);
 
     useEffect(() => {
         if (isEditing) {
@@ -102,11 +119,8 @@ const InstrumentForm = () => {
                                         name="tag"
                                     />
                                     <div className="invalid-feedback d-block">{errors.tag?.message}</div>
-
-
                                 </div>
                                 <div className="margin-botton-30">
-
                                     <input
                                         {...register('mark', {
                                             required: 'Campo Obrigatório',
@@ -118,11 +132,8 @@ const InstrumentForm = () => {
                                         name="mark"
                                     />
                                     <div className="invalid-feedback d-block">{errors.mark?.message}</div>
-
-
                                 </div>
                                 <div className="margin-botton-30">
-
                                     <input
                                         {...register('serie', {
                                             required: 'Campo Obrigatório',
@@ -134,11 +145,8 @@ const InstrumentForm = () => {
                                         name="serie"
                                     />
                                     <div className="invalid-feedback d-block">{errors.serie?.message}</div>
-
-
                                 </div>
                                 <div className="margin-botton-30">
-
                                     <input
                                         {...register('range', {
                                             required: 'Campo Obrigatório',
@@ -150,10 +158,19 @@ const InstrumentForm = () => {
                                         name="range"
                                     />
                                     <div className="invalid-feedback d-block">{errors.range?.message}</div>
-
-
+                                </div>
+                                <div className="margin-botton-30">
+                                  <Select 
+                                  placeholder="Department"
+                                  options={selectDepartment}
+                                  classNamePrefix="instrument-form-select"
+                                  getOptionLabel={(department: Department) => department.name }
+                                  getOptionValue={(department: Department) => String(department.id)}
+                                  />
                                 </div>
                             </div>
+
+
                             <div className="col-lg-6 margin-botton-30">
                                 <div className="margin-botton-30">
                                     <input
