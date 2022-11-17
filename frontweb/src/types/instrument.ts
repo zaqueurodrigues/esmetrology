@@ -4,7 +4,7 @@ export type Instrument = {
     id: number;
 	tag: string;
 	serie: string;
-	fabricante: string;
+	mark: string;
 	description: string;
 	type: string;
 	range: string;
@@ -13,4 +13,5 @@ export type Instrument = {
 	status: string;
 	note: string;
 	department: Department;
+	departmentId: number;
 }

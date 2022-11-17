@@ -26,7 +26,7 @@ const Instruments = () => {
             withCredentials: true,
             params: {
                 page: 0,
-                size: 5
+                size: 10
             }
         }
 

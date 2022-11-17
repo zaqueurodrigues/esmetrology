@@ -16,7 +16,9 @@ const BaseCard = ({ columns, link = '' }: Props) => {
             <div className="columns-container">
                 <div className="columns-content">
                     {columns.map((text) => (
-                        <div>{text}</div>
+                        <div className={` ${text === 'INACTIVE' ? 'text-danger fw-bold' : ''} ${text === 'ACTIVE' ? 'text-success fw-bold' : ''}`}>
+                            {text}
+                        </div>
                     ))}
                 </div>
             </div>
