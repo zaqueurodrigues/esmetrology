@@ -7,9 +7,10 @@ import './styles.css';
 
 type Props = {
     columns: string[];
+    link?: string;
 }
 
-const BaseCard = ({ columns }: Props) => {
+const BaseCard = ({ columns, link = '' }: Props) => {
     return (
         <div className="base-card card-header-content">
             <div className="columns-container">
@@ -21,12 +22,12 @@ const BaseCard = ({ columns }: Props) => {
             </div>
             {hasAnyRoles(['ROLE_ADMIN']) ? (
                 <div className="buttons-container">
-                    <ButtonEdit />
+                    <ButtonEdit link={link} />
                     <ButtonDelete />
                 </div>
             ) : (
                 <div className="buttons-container">
-                    <ButtonView />
+                    <ButtonView link={link} />
                 </div>
             )}
         </div>

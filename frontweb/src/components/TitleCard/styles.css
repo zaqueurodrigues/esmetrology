@@ -1,9 +1,5 @@
 .title-card-container {
-    display: flex;
-    justify-content: space-around;
-    height: 40px;
     background-color: #F5F7FB;
-    margin-bottom: 12px;
 }
 
 .title-card-itens {

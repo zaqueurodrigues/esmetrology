@@ -1,13 +1,18 @@
 import './styles.css';
 import { Gear } from 'phosphor-react';
+import { Link } from 'react-router-dom';
 
-const ButtonEdit = () => {
+type Props = {
+    link: String;
+}
+
+const ButtonEdit = ({ link } : Props) => {
 
     return (
         <div className="btn-container">
-            <button className="btn btn-primary btn-edit">
+            <Link to={`${link}`} className="btn btn-primary btn-view">
                 <Gear size={24} className="icon-edit" />
-            </button>
+            </Link>
         </div>
 
     );

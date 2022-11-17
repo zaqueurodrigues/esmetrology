@@ -62,7 +62,6 @@ const UserPage = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((user: User) => (
-                           // <Link to={`/users/1`} key={user.id}>
                                 <BaseCard columns={
                                     [
                                         `${user?.id}`,
@@ -70,8 +69,7 @@ const UserPage = () => {
                                         `${user?.email}`,
                                         `${user?.department.name}`,
                                     ]
-                                } />
-                          //  </Link>
+                                } link="/users/1" />
                         )))}
                 </div>
 

@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class InstrumentViewDTO {
 	
+	private Long id;
 	private String tag;
 	private String serie;
 	private String mark;

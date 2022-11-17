@@ -1,4 +1,3 @@
-import InstrumentCard from "pages/Instrument/InstrumentCard";
 import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
@@ -10,6 +9,9 @@ import { requestBackend } from "util/requests";
 import CardLoader from "../../components/CardLoader";
 import ButtonAdd from "components/Buttons/ButtonAdd";
 import Navbar from "components/Navbar";
+import BaseCard from "components/BaseCard";
+import { Link } from "react-router-dom";
+import { hasAnyRoles } from "util/auth";
 
 
 const Instruments = () => {
@@ -47,17 +49,34 @@ const Instruments = () => {
                     <h1>Instrumentos</h1>
                 </div>
                 <div className="middle-head-content">
-                    <Search />
-                    <ButtonAdd text="Adicionar Instrumento" />
+                    <div className="search-middle-head-content" >
+                        <Search />
+                    </div>
+                    <div className="btn-middle-head-content">
+                        { hasAnyRoles(['ROLE_ADMIN']) &&
+                            <Link to="/instruments/create">
+                                <ButtonAdd text="Adicionar Instrumento" />
+                            </Link>
+                        }
+
+                    </div>
                 </div>
-                <TitleCard columns={['tipo', 'tag', 'série', 'status']} />
+                <TitleCard columns={['id', 'tipo', 'tag', 'serie', 'status']} />
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((instrument: Instrument) => (
-                          //  <Link to={`/instruments/${instrument.id}`} key={instrument.id}>
-                                <InstrumentCard instrument={instrument} />
-                          //  </Link>
+                            <BaseCard columns={
+                                [
+                                    `${instrument?.id}`,
+                                    `${instrument?.type}`,
+                                    `${instrument?.tag}`,
+                                    `${instrument?.serie}`,
+                                    `${instrument?.status}`,
+                                ]
+                            } link="/instruments/1" />
                         )))}
+
+
                 </div>
                 <div>
                     <Pagination />

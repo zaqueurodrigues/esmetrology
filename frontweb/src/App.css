@@ -47,6 +47,8 @@ a:hover {
     color: #9E9E9E;
 }
 
+/* start Styles general pages */
+
 .title {
     margin-bottom: 32px;
 }
@@ -56,9 +58,11 @@ a:hover {
 }
 
 .middle-head-content {
-    display: flex;
-    justify-content: space-between;
     margin-bottom: 12px;
+}
+
+.btn-middle-head-content {
+    margin-top: 12px;
 }
 
 .page-container {
@@ -70,6 +74,20 @@ a:hover {
     padding: 20px;
 }
 
+@media (min-width: 576px) {
+    .middle-head-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-middle-head-content {
+        margin-left: 10px;
+    }
+
+}
+
+
 @media (min-width: 1200px) {
     .page-container {
         flex-direction: row;
@@ -79,3 +97,6 @@ a:hover {
         flex: 1;
     }
 }
+
+
+/* end Styles general pages */

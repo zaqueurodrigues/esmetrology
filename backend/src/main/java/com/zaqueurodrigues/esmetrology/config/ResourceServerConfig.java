@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -33,7 +34,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public static final String[] ADMIN = { "/certificates/**", "/departments/**", "/instruments/**", "/labs/**",
 			"/users/**" };
 
-	public static final String[] NORMAL = { "/certificates/**", "/instruments/**" };
+	public static final String[] STANDARD = { "/certificates/**", "/departments/**", "/instruments/**" };
 
 	public static final String[] PERMITED_SWAGGER_PATHS = new String[] { "/v2/api-docs", "/webjars/**",
 			"/configuration/ui", "/configuration/security", "/swagger-resources", "/swagger-resources/configuration/ui",
@@ -52,9 +53,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			http.headers().frameOptions().disable();
 		}
 
-		http.authorizeRequests().antMatchers("/**").permitAll().antMatchers(PERMITED_SWAGGER_PATHS).permitAll();
-				/*.antMatchers(HttpMethod.GET, NORMAL).hasRole("NORMAL").antMatchers(ADMIN).hasRole("ADMIN").anyRequest()
-				.authenticated();*/
+		http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(PERMITED_SWAGGER_PATHS).permitAll()
+				.antMatchers(HttpMethod.GET, STANDARD).hasAnyRole("ADMIN", "STANDARD").antMatchers(ADMIN).hasRole("ADMIN").anyRequest()
+				.authenticated();
 	}
 	
 	@Bean

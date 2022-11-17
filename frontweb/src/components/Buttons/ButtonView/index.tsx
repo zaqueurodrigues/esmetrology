@@ -1,13 +1,18 @@
 import './styles.css';
 import { Eye } from 'phosphor-react';
+import { Link } from 'react-router-dom';
 
-const ButtonView = () => {
+type Props = {
+    link: String;
+}
+
+const ButtonView = ( { link } : Props ) => {
 
     return (
         <div className="btn-container">
-            <button className="btn btn-secondary btn-view">
+            <Link to={`${link}`} className="btn btn-secondary btn-view">
                 <Eye size={24} className="icon-view" />
-            </button>
+            </Link>
         </div>
 
     );

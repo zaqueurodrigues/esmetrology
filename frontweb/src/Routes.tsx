@@ -7,6 +7,7 @@ import Lab from "pages/Lab";
 import User from "pages/User";
 import history from "util/history";
 import PrivateRoute from "components/PrivateRoute";
+import InstrumentForm from "pages/Instrument/InstrumentForm";
 
 
 const Routes = () => (
@@ -18,21 +19,21 @@ const Routes = () => (
                     <Auth />
                 </Route>
 
-                <PrivateRoute path="/instruments">
+                <Route path="/instruments" exact>
                     <Instrument />
-                </PrivateRoute>
+                </Route>
 
-                <PrivateRoute path="/instruments/{id}">
-                    <Instrument />
-                </PrivateRoute>
+                <Route path="/instruments/:id" exact>
+                    <InstrumentForm />
+                </Route>
 
-                <PrivateRoute path="/departments">
+                <Route path="/departments">
                     <Department />
-                </PrivateRoute>
+                </Route>
 
-                <PrivateRoute path="/certificates">
+                <Route path="/certificates">
                     <Certificate />
-                </PrivateRoute>
+                </Route>
 
                 <PrivateRoute path="/labs">
                     <Lab />

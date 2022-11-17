@@ -63,7 +63,7 @@ public class SwaggerConfig {
 	}
 
 	private Predicate<String> mountPredicates() {
-		final List<String> permited = concat(of(ResourceServerConfig.ADMIN), of(ResourceServerConfig.NORMAL))
+		final List<String> permited = concat(of(ResourceServerConfig.ADMIN), of(ResourceServerConfig.STANDARD))
 				.collect(toList());
 		final Stream<String> concat = concat(of(ResourceServerConfig.PUBLIC), permited.stream());
 		List<Predicate<String>> all = concat.map(PathSelectors::ant).collect(toList());
