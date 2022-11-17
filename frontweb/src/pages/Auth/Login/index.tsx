@@ -25,7 +25,7 @@ const Login = () => {
 
   const { from } = location.state || { from: { pathname: '/instruments' } }
 
-  const { authContextData, setAuthContextData } = useContext(AuthContext);
+  const { setAuthContextData } = useContext(AuthContext);
 
   const [ hasError, setHasError ] = useState(false);
 

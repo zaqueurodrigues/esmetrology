@@ -1,31 +1,60 @@
 import { AxiosRequestConfig } from "axios";
 import Navbar from "components/Navbar";
-import DepartmentPage from "pages/Department";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Instrument } from "types/instrument";
 import { requestBackend } from "util/requests";
+import { useEffect } from 'react';
 import './styles.css';
+
+type UrlParams = {
+    instrumentId: string;
+};
 
 const InstrumentForm = () => {
 
+    const { instrumentId } = useParams<UrlParams>();
+
+    const isEditing = instrumentId !== 'create';
+
     const history = useHistory();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Instrument>();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<Instrument>();
+
+    useEffect(() => {
+        if (isEditing) {
+            requestBackend({ withCredentials: true, url: `/instruments/${instrumentId}` })
+                .then((response) => {
+
+                    const instrument = response.data as Instrument;
+
+                    setValue('id', instrument.id);
+                    setValue('tag', instrument.tag);
+                    setValue('serie', instrument.serie);
+                    setValue('mark', instrument.mark);
+                    setValue('description', instrument.description);
+                    setValue('type', instrument.type);
+                    setValue('range', instrument.range);
+                    setValue('frequency', instrument.frequency);
+                    setValue('status', instrument.status);
+                    setValue('note', instrument.note);
+                });
+        }
+    }, [isEditing, instrumentId, setValue]);
 
     const onSubmit = (formData: Instrument) => {
 
-        const data = { ...formData, department: {id: 1}, departmentId: 1 }
+        const data = { ...formData, departmentId: isEditing ? 1 : 2 }
 
         const config: AxiosRequestConfig = {
-            method: 'POST',
-            url: "/instruments",
+            method: isEditing ? 'PUT' : 'POST',
+            url: isEditing ? `/instruments/${instrumentId}` : '/instruments',
             withCredentials: true,
             data
         }
         requestBackend(config)
             .then(response => {
-                console.log(response.data)
+                history.push('/instruments');
             })
     };
 
@@ -165,12 +194,12 @@ const InstrumentForm = () => {
                                     />
                                     <div className="invalid-feedback d-block">{errors.status?.message}</div>
                                 </div>
-                                <textarea 
-                                {...register('note') }
-                                name="note" 
-                                placeholder="Observações" 
-                                rows={5} 
-                                className="base-input form-control h-auto" 
+                                <textarea
+                                    {...register('note')}
+                                    name="note"
+                                    placeholder="Observações"
+                                    rows={5}
+                                    className="base-input form-control h-auto"
                                 />
                             </div>
 

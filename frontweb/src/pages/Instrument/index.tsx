@@ -73,7 +73,7 @@ const Instruments = () => {
                                     `${instrument?.serie}`,
                                     `${instrument?.status}`,
                                 ]
-                            } link="/instruments/1" />
+                            } link={`/instruments/${instrument.id}`} />
                         )))}
 
 

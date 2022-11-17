@@ -23,7 +23,7 @@ const Routes = () => (
                     <Instrument />
                 </Route>
 
-                <Route path="/instruments/:id" exact>
+                <Route path="/instruments/:instrumentId" exact>
                     <InstrumentForm />
                 </Route>
 
