@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import { toast } from 'react-toastify';
 import Navbar from "components/Navbar";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
@@ -65,7 +66,19 @@ const InstrumentForm = () => {
         }
         requestBackend(config)
             .then(response => {
+                toast.success('Instrumento salvo com sucesso!', {
+                    autoClose: 2000,
+                    pauseOnHover: false,
+                    hideProgressBar: true
+                })
                 history.push('/instruments');
+            })
+            .catch (() => {
+               toast.error('Erro ao salvar o Instrumento', {
+                    autoClose: 2000,
+                    pauseOnHover: false,
+                    hideProgressBar: true
+               }) 
             })
     };
 
