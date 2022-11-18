@@ -2,7 +2,7 @@ import Pagination from "components/Pagination";
 import Search from "components/Search";
 import TitleCard from "components/TitleCard";
 import { Instrument } from "types/instrument";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { SpringPage } from "types/vendor/spring";
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "util/requests";
@@ -14,34 +14,46 @@ import { Link } from "react-router-dom";
 import { hasAnyRoles } from "util/auth";
 
 
+type ControlComponentsData = {
+    activePage: number;
+
+}
+
+
 const Instruments = () => {
 
     const [page, setPage] = useState<SpringPage<Instrument>>();
     const [isLoading, setIsLoading] = useState(false);
+    const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({activePage: 0});
 
-    useEffect(() => {
-        getInstruments(0);
-    }, []);
+    const handlePageChange = (pageCount: number) => {
+        setControlComponentsData({activePage: pageCount})
+    }
 
-    const getInstruments = (pageNumber: number) => {
+    const getInstruments = useCallback(() => {
         const params: AxiosRequestConfig = {
             method: "GET",
             url: "/instruments",
             withCredentials: true,
             params: {
-                page: pageNumber,
-                size: 1
-            }
-        }
-
+                page: controlComponentsData.activePage,
+                size: 3
+            },
+        };
         setIsLoading(true);
         requestBackend(params)
             .then(response => {
                 setPage(response.data);
             }).finally(() => {
                 setIsLoading(false);
-            });
-    }
+            })
+    }, [controlComponentsData]);
+
+    useEffect(() => {
+        getInstruments();
+    }, [getInstruments]);
+
+   
 
     return (
         <div className="page-container">
@@ -77,13 +89,13 @@ const Instruments = () => {
                                     `${instrument?.serie}`,
                                     `${instrument?.status}`,
                                 ]
-                            } onDelete={() => getInstruments(page.number)} link={`/instruments/${instrument.id}`} />
+                            } onDelete={() => getInstruments()} link={`/instruments/${instrument.id}`} />
                         )))}
 
 
                 </div>
                 <div>
-                    <Pagination pageCount={page?.totalPages} onChange={getInstruments} />
+                    <Pagination pageCount={page?.totalPages} onChange={handlePageChange} />
                 </div>
             </div>
         </div>

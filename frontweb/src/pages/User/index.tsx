@@ -17,7 +17,7 @@ const UserPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-       getUsers();
+        getUsers();
     }, []);
 
     const getUsers = () => {
@@ -43,19 +43,23 @@ const UserPage = () => {
     return (
         <div className="page-container">
 
-            
-                <div className="page-nav-container">
-                <Navbar />
-                </div>
 
-                <div className="page-content">
+            <div className="page-nav-container">
+                <Navbar />
+            </div>
+
+            <div className="page-content">
                 <div className="title">
                     <h1>Usuários</h1>
                 </div>
 
                 <div className="middle-head-content">
-                    <Search />
-                    <ButtonAdd text="Adicionar Usuário" />
+                    <div className="search-middle-head-content" >
+                        <Search />
+                    </div>
+                    <div className="btn-middle-head-content">
+                        <ButtonAdd text="Adicionar Usuário" />
+                    </div>
                 </div>
 
                 <div>
@@ -65,14 +69,14 @@ const UserPage = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((user: User) => (
-                                <BaseCard onDelete={getUsers} columns={
-                                    [
-                                        `${user?.id}`,
-                                        `${user?.name}`,
-                                        `${user?.email}`,
-                                        `${user?.department.name}`,
-                                    ]
-                                } link="/users/1" />
+                            <BaseCard onDelete={getUsers} columns={
+                                [
+                                    `${user?.id}`,
+                                    `${user?.name}`,
+                                    `${user?.email}`,
+                                    `${user?.department.name}`,
+                                ]
+                            } link="/users/1" />
                         )))}
                 </div>
 
