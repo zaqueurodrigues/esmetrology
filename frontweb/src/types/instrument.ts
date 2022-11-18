@@ -13,5 +13,4 @@ export type Instrument = {
 	status: string;
 	note: string;
 	department: Department;
-	departmentId: number;
 }

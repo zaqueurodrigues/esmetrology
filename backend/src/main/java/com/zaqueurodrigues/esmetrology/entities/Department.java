@@ -10,11 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tb_department")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Department {
 	
 	@Id
@@ -25,5 +31,7 @@ public class Department {
 	private Set<User> users = new HashSet<>();
 	@OneToMany(mappedBy = "department")
 	private Set<Instrument> instruments = new HashSet<>();
+	
+	
 
 }

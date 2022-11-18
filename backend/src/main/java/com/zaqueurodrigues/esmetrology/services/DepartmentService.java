@@ -5,11 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.zaqueurodrigues.esmetrology.dtos.DepartmentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
-import com.zaqueurodrigues.esmetrology.mappers.DepartmentMapper;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
 import com.zaqueurodrigues.esmetrology.services.exceptions.DatabaseException;
 import com.zaqueurodrigues.esmetrology.services.exceptions.ResourceNotFoundException;
@@ -20,9 +21,10 @@ public class DepartmentService {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
-	@Autowired
-	private DepartmentMapper departmentMapper;
-
+	public Page<DepartmentViewDTO> findAll(Pageable pageable) {
+		return departmentRepository.findAll(pageable).map(dep -> new DepartmentViewDTO(dep));
+	}
+	
 	public DepartmentViewDTO findByid(Long id) {
 		Optional<Department> opt = departmentRepository.findById(id);
 
@@ -30,13 +32,13 @@ public class DepartmentService {
 			throw new ResourceNotFoundException("Department not found!");
 		}
 
-		return departmentMapper.parseViewDTO(opt.get());
+		return new DepartmentViewDTO(opt.get());
 	}
 
 	public DepartmentViewDTO insert(DepartmentViewDTO dto) {
-		Department department = departmentMapper.parseDepartment(dto);
+		Department department = parseDtoToDepartment(dto);
 		department = departmentRepository.save(department);
-		return departmentMapper.parseViewDTO(department);
+		return new DepartmentViewDTO(department);
 	}
 
 	public DepartmentViewDTO update(Long id, DepartmentViewDTO dto) {
@@ -50,9 +52,14 @@ public class DepartmentService {
 		
 		department.setName(dto.getName());
 		department = departmentRepository.save(department);
-		return departmentMapper.parseViewDTO(department);
+		return new DepartmentViewDTO(department);
 
 	}
+	
+	private Department parseDtoToDepartment(DepartmentViewDTO dto) {
+		return new Department(dto.getId(), dto.getName(), null, null);
+	}
+	
 
 	public void delete(Long id) {
 		try {

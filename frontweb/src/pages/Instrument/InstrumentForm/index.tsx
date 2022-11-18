@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import Navbar from "components/Navbar";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { Instrument } from "types/instrument";
 import { Department } from "types/department";
@@ -15,13 +15,7 @@ type UrlParams = {
 
 const InstrumentForm = () => {
 
-    const [ selectDepartment, setSelectDepartment ] = useState<Department[]>([]);
-
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    const [selectDepartment, setSelectDepartment] = useState<Department[]>([]);
 
     const { instrumentId } = useParams<UrlParams>();
 
@@ -29,12 +23,12 @@ const InstrumentForm = () => {
 
     const history = useHistory();
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<Instrument>();
+    const { register, handleSubmit, formState: { errors }, setValue, control } = useForm<Instrument>();
 
     useEffect(() => {
-        requestBackend({withCredentials: true, url: '/departments'})
+        requestBackend({ withCredentials: true, url: '/departments' })
             .then((response) => {
-                setSelectDepartment(response.data.content)
+                setSelectDepartment(response.data.content);
             })
     }, []);
 
@@ -53,21 +47,21 @@ const InstrumentForm = () => {
                     setValue('type', instrument.type);
                     setValue('range', instrument.range);
                     setValue('frequency', instrument.frequency);
+                    setValue('lastCalibration', instrument.lastCalibration);
                     setValue('status', instrument.status);
                     setValue('note', instrument.note);
+                    setValue('department', instrument.department);
                 });
         }
     }, [isEditing, instrumentId, setValue]);
 
     const onSubmit = (formData: Instrument) => {
 
-        const data = { ...formData, departmentId: isEditing ? 1 : 2 }
-
         const config: AxiosRequestConfig = {
             method: isEditing ? 'PUT' : 'POST',
             url: isEditing ? `/instruments/${instrumentId}` : '/instruments',
             withCredentials: true,
-            data
+            data: formData
         }
         requestBackend(config)
             .then(response => {
@@ -160,13 +154,30 @@ const InstrumentForm = () => {
                                     <div className="invalid-feedback d-block">{errors.range?.message}</div>
                                 </div>
                                 <div className="margin-botton-30">
-                                  <Select 
-                                  placeholder="Department"
-                                  options={selectDepartment}
-                                  classNamePrefix="instrument-form-select"
-                                  getOptionLabel={(department: Department) => department.name }
-                                  getOptionValue={(department: Department) => String(department.id)}
-                                  />
+
+                                    <Controller
+                                        name="department"
+                                        rules={{ required: true }}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Select {...field}
+                                                placeholder="Department"
+                                                options={selectDepartment}
+                                                classNamePrefix="instrument-form-select"
+                                                getOptionLabel={(department: Department) => department.name}
+                                                getOptionValue={(department: Department) =>
+                                                     String(department.id)
+                                                }
+                                            />
+                                        )}
+                                    />
+                                    {errors.department && 
+                                        <div className="invalid-feedback d-block">
+                                            Campo Obrigatório
+                                        </div>
+                                    }
+
+
                                 </div>
                             </div>
 
