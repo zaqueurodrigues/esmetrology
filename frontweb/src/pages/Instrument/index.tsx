@@ -1,5 +1,5 @@
 import Pagination from "components/Pagination";
-import Search from "components/Search";
+import Search, { InstrumentFilterData } from "components/Search";
 import TitleCard from "components/TitleCard";
 import { Instrument } from "types/instrument";
 import { useState, useEffect, useCallback } from 'react';
@@ -16,18 +16,24 @@ import { hasAnyRoles } from "util/auth";
 
 type ControlComponentsData = {
     activePage: number;
-
+    filterData: InstrumentFilterData;
 }
-
 
 const Instruments = () => {
 
     const [page, setPage] = useState<SpringPage<Instrument>>();
     const [isLoading, setIsLoading] = useState(false);
-    const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({activePage: 0});
+    const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
+        activePage: 0,
+        filterData: {tag: ''}
+    });
 
     const handlePageChange = (pageCount: number) => {
-        setControlComponentsData({activePage: pageCount})
+        setControlComponentsData({activePage: pageCount, filterData: controlComponentsData.filterData})
+    }
+
+    const handleSubmitFilter = (data: InstrumentFilterData) => {
+        setControlComponentsData({activePage: 0, filterData: data})
     }
 
     const getInstruments = useCallback(() => {
@@ -37,7 +43,8 @@ const Instruments = () => {
             withCredentials: true,
             params: {
                 page: controlComponentsData.activePage,
-                size: 3
+                size: 3,
+                tag: controlComponentsData.filterData.tag,
             },
         };
         setIsLoading(true);
@@ -66,7 +73,7 @@ const Instruments = () => {
                 </div>
                 <div className="middle-head-content">
                     <div className="search-middle-head-content" >
-                        <Search />
+                        <Search onSubmitFilter={handleSubmitFilter} />
                     </div>
                     <div className="btn-middle-head-content">
                         {hasAnyRoles(['ROLE_ADMIN']) &&
@@ -95,7 +102,7 @@ const Instruments = () => {
 
                 </div>
                 <div>
-                    <Pagination pageCount={page?.totalPages} onChange={handlePageChange} />
+                    <Pagination forcePage={page?.number} pageCount={page?.totalPages} onChange={handlePageChange} />
                 </div>
             </div>
         </div>

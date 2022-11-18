@@ -1,4 +1,8 @@
-input {
+.search-container {
+    display: flex;
+}
+
+.input-search {
     background-color: #F5F7FB;
     height: 30px;
     border-radius: 10px 0 0 10px;
@@ -7,8 +11,12 @@ input {
     width: 320px;
 }
 
-.search-container {
-    display: flex;
+.input-search:focus {
+    outline: none;
+}
+
+.input-search::placeholder {
+    color: #9e9e9e;
 }
 
 .search-icon-container {
