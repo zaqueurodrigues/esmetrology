@@ -1,4 +1,4 @@
-ul {
+.nav-itens-container {
     display: flex;
     justify-content: space-around;
     list-style-type: none;
@@ -45,12 +45,12 @@ ul {
 }
 
 @media (min-width: 1200px) {
-    ul {
+    .nav-itens-container {
         flex-direction: column;
         justify-content: center;
     }
 
-    ul li:last-child {
+    .nav-itens-container li:last-child {
         border-bottom: 0px;
         position: absolute;
         left: 0;

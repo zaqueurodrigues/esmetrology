@@ -25,12 +25,19 @@
     color: #fff;
 }
 
+.pagination-link-active {
+    background-color: #407bff;
+    color: #fff;
+}
+
 .arrow-previous {
     transform: rotate(-180deg);
+    stroke: #407bff;
 }
 
 .arrow-next {
     margin-left: 10px;
+    stroke: #407bff;
 }
 
 .arrow-inactive {
@@ -40,4 +47,9 @@
 
 .arrow-active {
     stroke: #407bff;
+}
+
+.pagination-arrow-container {
+    display: flex;
+    align-items: center;
 }

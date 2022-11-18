@@ -49,7 +49,7 @@ const Navbar = () => {
                 aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button> */}
-            <ul >
+            <ul className="nav-itens-container" >
                 <li>
                     <NavLink to="/instruments" className="nav-item">
                         <Calculator className="base-icon" size={32} /> INSTRUMENTOS

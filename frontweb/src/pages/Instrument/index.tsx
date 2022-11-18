@@ -20,17 +20,17 @@ const Instruments = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        getInstruments();
+        getInstruments(0);
     }, []);
 
-    const getInstruments = () => {
+    const getInstruments = (pageNumber: number) => {
         const params: AxiosRequestConfig = {
             method: "GET",
             url: "/instruments",
             withCredentials: true,
             params: {
-                page: 0,
-                size: 10
+                page: pageNumber,
+                size: 1
             }
         }
 
@@ -77,13 +77,13 @@ const Instruments = () => {
                                     `${instrument?.serie}`,
                                     `${instrument?.status}`,
                                 ]
-                            } onDelete={() => getInstruments()} link={`/instruments/${instrument.id}`} />
+                            } onDelete={() => getInstruments(page.number)} link={`/instruments/${instrument.id}`} />
                         )))}
 
 
                 </div>
                 <div>
-                    <Pagination />
+                    <Pagination pageCount={page?.totalPages} onChange={getInstruments} />
                 </div>
             </div>
         </div>
