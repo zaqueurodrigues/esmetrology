@@ -9,6 +9,7 @@ import { requestBackend } from "util/requests";
 import { useEffect, useState } from 'react';
 import Select, { ActionMeta } from "react-select";
 import './styles.css';
+import { hasAnyRoles } from "util/auth";
 
 type UrlParams = {
     instrumentId: string;
@@ -18,7 +19,7 @@ const InstrumentForm = () => {
 
     const [selectDepartment, setSelectDepartment] = useState<Department[]>([]);
 
-    const [selectStatus, setSelectStatus] = useState<{}[]>([]); 
+    const [selectStatus, setSelectStatus] = useState<{}[]>([]);
 
     const { instrumentId } = useParams<UrlParams>();
 
@@ -261,11 +262,13 @@ const InstrumentForm = () => {
                                     className="base-input form-control h-auto"
                                 />
                             </div>
-
-                            <div className="instrument-form-buttons-container">
-                                <button className="btn btn-outline-danger instrument-form-button" onClickCapture={handleCancel}>CANCELAR</button>
-                                <button className="btn btn-primary instrument-form-button text-white">SALVAR</button>
-                            </div>
+                            {
+                                hasAnyRoles(['ROLE_ADMIN']) &&
+                                <div className="instrument-form-buttons-container">
+                                    <button className="btn btn-outline-danger instrument-form-button" onClickCapture={handleCancel}>CANCELAR</button>
+                                    <button className="btn btn-primary instrument-form-button text-white">SALVAR</button>
+                                </div>
+                            }
                         </div>
                     </form>
                 </div>
