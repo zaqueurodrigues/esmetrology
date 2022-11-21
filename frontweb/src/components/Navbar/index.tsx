@@ -1,7 +1,42 @@
 import './styles.css';
 import 'bootstrap/js/src/collapse.js';
+import { NavLink } from 'react-router-dom';
+import { Article, Buildings, Calculator, Flask, SignOut, Users } from 'phosphor-react';
+import { getTokenData, hasAnyRoles, isAuthenticated } from 'util/auth';
+import { useEffect, useContext } from 'react';
+import history from 'util/history';
+import { AuthContext } from 'AuthContext';
+import { removeAuthData } from 'util/storage';
+
+
 
 const Navbar = () => {
+
+    const { authContextData, setAuthContextData } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            setAuthContextData({
+                authenticated: true,
+                tokenData: getTokenData()
+            });
+        } else {
+            setAuthContextData({
+                authenticated: false
+            })
+        }
+    }, [setAuthContextData]);
+
+    const handleLogoutClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+        removeAuthData();
+        setAuthContextData({
+            authenticated: false
+        })
+        history.replace('/')
+    }
+
+
     return (
         <nav className="nav-container">
             {/* <button
@@ -14,36 +49,40 @@ const Navbar = () => {
                 aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button> */}
-            <ul >
+            <ul className="nav-itens-container" >
                 <li>
-                    <a href="link" className="nav-item active">
-                        EQUIPAMENTOS
-                    </a>
+                    <NavLink to="/instruments" className="nav-item">
+                        <Calculator className="base-icon" size={32} /> INSTRUMENTOS
+                    </NavLink>
                 </li>
                 <li>
-                    <a href="link" className="nav-item">
-                        SETORES
-                    </a>
+                    <NavLink to="/departments" className="nav-item">
+                        <Buildings className="base-icon" size={32} /> SETORES
+                    </NavLink>
                 </li>
                 <li>
-                    <a href="link" className="nav-item">
-                        CERTIFICADOS
-                    </a>
+                    <NavLink to="/certificates" className="nav-item">
+                        <Article className="base-icon" size={32} /> CERTIFICADOS
+                    </NavLink>
                 </li>
+                {hasAnyRoles(['ROLE_ADMIN']) &&
+                    <li>
+                        <NavLink to="/labs" className="nav-item">
+                            <Flask className="base-icon" size={32} /> LABORATÓRIOS
+                        </NavLink>
+                    </li>
+                }
+                {hasAnyRoles(['ROLE_ADMIN']) &&
+                    <li>
+                        <NavLink to="/users" className="nav-item">
+                            <Users className="base-icon" size={32} /> USUÁRIOS
+                        </NavLink>
+                    </li>
+                }
                 <li>
-                    <a href="link" className="nav-item">
-                        USUÁRIOS
-                    </a>
-                </li>
-                <li>
-                    <a href="link" className="nav-item">
-                        LABORATÓRIOS
-                    </a>
-                </li>
-
-                <li>
-                    <a href="link" className="nav-item user-text">
-                        Oi, Zaqueu
+                    <a href="#logout" onClick={handleLogoutClick} className="nav-item user-text">
+                        {`Olá, ${authContextData.tokenData?.user_name}!`}
+                        <SignOut className="base-icon" size={32} />
                     </a>
                 </li>
             </ul>

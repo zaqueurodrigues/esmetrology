@@ -1,0 +1,12 @@
+.title-card-container {
+    background-color: #F5F7FB;
+}
+
+.title-card-itens {
+    color: #A3A7B4;
+    text-transform: uppercase;
+}
+
+.buttons-invisible {
+    visibility: hidden;
+}

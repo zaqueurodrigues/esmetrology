@@ -11,13 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.Instrument;
 import com.zaqueurodrigues.esmetrology.entities.User;
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
-import com.zaqueurodrigues.esmetrology.mappers.InstrumentMapper;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
 import com.zaqueurodrigues.esmetrology.repositories.InstrumentRepository;
 import com.zaqueurodrigues.esmetrology.services.exceptions.DatabaseException;
@@ -33,44 +32,36 @@ public class InstrumentService {
 	private DepartmentRepository departmentRepository;
 	
 	@Autowired
-	private DepartmentService departmentService;
-
-	@Autowired
 	private AuthService authService;
-
-	@Autowired
-	private InstrumentMapper instrumentMapper;
 
 	public Page<InstrumentViewDTO> findAll(String tag, Long departmentId, String description, Pageable pageable) {
 
 		User user = authService.authenticated();
 
-		if (!user.hasRole("ROLE_ADMIN")) {
+		if (user != null && !user.hasRole("ROLE_ADMIN")) {
 
 			Department department = departmentRepository.getById(user.getDepartment().getId());
 			Page<Instrument> result = instrumentRepository.findByDepartment(department, pageable);
-			return result.map(instrument -> instrumentMapper.parseViewDto(instrument));
+			return result.map(instrument -> new InstrumentViewDTO(instrument));
 		}
 
 		Department department = (departmentId == 0) ? null : departmentRepository.getById(departmentId);
 		Page<Instrument> page = instrumentRepository.find(tag, department, description, pageable);
 		instrumentRepository.findInstrumentWithDepartment(page.getContent());
 
-		return page.map(inst -> instrumentMapper.parseViewDto(inst));
+		return page.map(inst -> new InstrumentViewDTO(inst));
 
 	}
 	
 	public InstrumentViewDTO findById(Long id) {
 		
-		Instrument inst = instrumentRepository.getById(id);
-		
-		if (inst == null) {
+		Optional<Instrument> opt = instrumentRepository.findById(id);
+
+		if (!opt.isPresent()) {
 			throw new ResourceNotFoundException("Instrument not found!");
 		}
-		
-		InstrumentViewDTO dto = instrumentMapper.parseViewDto(inst);
-		
-		return dto;
+
+		return new InstrumentViewDTO(opt.get());
 		
 	}
 	
@@ -78,33 +69,33 @@ public class InstrumentService {
 		
 		List<Instrument> instruments = instrumentRepository.findByDepartment(departmentRepository.getById(departmentId));
 		
-		return instruments.stream().map(i -> instrumentMapper.parseViewDto(i)).collect(Collectors.toList());
+		return instruments.stream().map(i -> new InstrumentViewDTO(i)).collect(Collectors.toList());
 		
 	}
 
 	public InstrumentViewDTO insert(InstrumentSaveDTO dto) {
-		Instrument instrument = instrumentMapper.parseInstrument(dto);
+		Instrument instrument = parseDtoToInstrument(dto);
 		if(dto.getStatus() == null) {
 			instrument.setStatus(InstrumentStatus.ACTIVE);
 		}
 		
-		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
+		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartment().getId());
 
 		if (!departmentOp.isPresent()) {
-			throw new ResourceNotFoundException("Department not exists: " + dto.getDepartmentId());
+			throw new ResourceNotFoundException("Department not exists: " + dto.getDepartment().getId());
 		}
 
 		instrument.setDepartment(departmentOp.get());
 
 		instrument = instrumentRepository.save(instrument);
 
-		return instrumentMapper.parseViewDto(instrument);
+		return new InstrumentViewDTO(instrument);
 
 	}
 
 	public InstrumentViewDTO update(Long id, InstrumentSaveDTO dto) {
 		dto.setId(id);
-		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartmentId());
+		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartment().getId());
 
 		if (!departmentOp.isPresent()) {
 			throw new ResourceNotFoundException("Incorrect department id!");
@@ -113,11 +104,30 @@ public class InstrumentService {
 
 		var instrument = instrumentRepository.getById(id);
 
-		instrument = instrumentMapper.parseInstrument(dto);
+		instrument = parseDtoToInstrument(dto);
 		instrument.setDepartment(department);
 		instrument = instrumentRepository.save(instrument);
-		return instrumentMapper.parseViewDto(instrument);
+		return new InstrumentViewDTO(instrument);
 
+	}
+	
+	private Instrument parseDtoToInstrument(InstrumentSaveDTO dto) {
+		
+		return new Instrument(
+				dto.getId(),
+				dto.getTag(),
+				dto.getSerie(),
+				dto.getMark(),
+				dto.getDescription(),
+				dto.getType(),
+				dto.getRange(),
+				dto.getFrequency(),
+				null, // lastCalibration
+				dto.getStatus(),
+				dto.getNote(),
+				null, // department
+				null ); // list certificates
+				
 	}
 	
 	public void delete(Long id) {

@@ -1,0 +1,29 @@
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn h6 {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.btn-edit {
+    width: 50px !important;
+    margin-right: 2px;
+}
+
+.icon-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+}

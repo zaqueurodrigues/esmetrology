@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.InstrumentViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.instruments.InstrumentViewDTO;
 import com.zaqueurodrigues.esmetrology.services.InstrumentService;
 
 import io.swagger.annotations.Api;
@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(value = "/instruments")
-@Api(tags = {"Instrumentos"})
+@Api(tags = {"Instruments"}, description = "API Instrument")
 public class InstrumentResource {
 	
 	@Autowired
@@ -51,14 +51,10 @@ public class InstrumentResource {
 		return ResponseEntity.ok(service.findAll(tag, departmentId, description, pageable));
 	}
 	
-	
-	@GetMapping (value = "{/id}")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Retorna um instrumento"),
-	})
-	@ApiOperation ("Busca um instrumento por id")
-	public ResponseEntity<InstrumentViewDTO> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(service.findById(id));
+	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Busca um instrumento por id")
+	public ResponseEntity<InstrumentViewDTO> findById(@PathVariable Long id){
+		return ResponseEntity.ok().body(service.findById(id));
 	}
 	
 	

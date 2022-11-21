@@ -16,17 +16,24 @@ import javax.persistence.Table;
 
 import com.zaqueurodrigues.esmetrology.entities.enums.InstrumentStatus;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tb_instrument")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Instrument  {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String tag;
+	private String serie;
+	private String mark;
 	private String description;
 	private String type;
 	private String range;
