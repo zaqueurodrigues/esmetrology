@@ -235,23 +235,41 @@ const InstrumentForm = () => {
                                     <div className="invalid-feedback d-block">{errors.frequency?.message}</div>
                                 </div>
                                 <div className="margin-botton-30">
-                                    <Controller
+
+                                    <input
+                                        {...register('status', {
+                                            required: 'Campo Obrigatório',
+
+                                        })}
+                                        type="text"
+                                        className={`form-control base-input ${errors.status ? 'is-invalid' : ''}`}
+                                        placeholder="ACTIVE | INACTIVE"
                                         name="status"
-                                        rules={{ required: true }}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Select
-                                                placeholder="Status"
-                                                options={selectStatus}
-                                                classNamePrefix="instrument-form-select"
-                                            />
-                                        )}
                                     />
-                                    {errors.status &&
-                                        <div className="invalid-feedback d-block">
-                                            Campo Obrigatório
-                                        </div>
-                                    }
+                                    <div className="invalid-feedback d-block">{errors.status?.message}</div>
+
+                                    { /*
+                                     <Controller
+                                     name="status"
+                                     rules={{ required: true }}
+                                     control={control}
+                                     render={({ field }) => (
+                                         <Select
+                                             placeholder="Status"
+                                             options={selectStatus}
+                                             classNamePrefix="instrument-form-select"
+                                         />
+                                     )}
+                                 />
+                                 {errors.status &&
+                                     <div className="invalid-feedback d-block">
+                                         Campo Obrigatório
+                                     </div>
+                                 }
+
+                                */}
+
+
 
                                 </div>
                                 <textarea
