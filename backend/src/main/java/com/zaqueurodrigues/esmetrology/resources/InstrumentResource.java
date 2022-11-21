@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(value = "/instruments")
-@Api(tags = {"Instrumentos"})
+@Api(tags = {"Instruments"}, description = "API Instrument")
 public class InstrumentResource {
 	
 	@Autowired

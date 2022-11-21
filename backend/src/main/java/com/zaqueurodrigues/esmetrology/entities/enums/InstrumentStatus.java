@@ -2,7 +2,7 @@ package com.zaqueurodrigues.esmetrology.entities.enums;
 
 public enum InstrumentStatus {
 	
-	INACTIVE(1), ACTIVE(2);
+	INACTIVE(0), ACTIVE(1);
 	
 	private int status;
 	

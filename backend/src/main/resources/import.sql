@@ -18,7 +18,7 @@ INSERT INTO tb_notification (text, moment, read, user_id) VALUES ('Paquímetro 5
 
 INSERT INTO tb_lab (name, address, accreditation_number) VALUES ('M&M Instrumentation', 'Av. Airton Senna, 13', 'RBC-52548871');
 
-INSERT INTO tb_instrument (tag, serie, mark, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.34.00038', '12345', 'Wika', 'Manometro Digital Tex', 'Manometro', '0 a 16 bar', '12 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 1, 'Atualizado', 1); 
+INSERT INTO tb_instrument (tag, serie, mark, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.34.00038', '12345', 'Wika', 'Manometro Digital Tex', 'Manometro', '0 a 16 bar', '12 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 0, 'Atualizado', 1); 
 INSERT INTO tb_instrument (tag, serie, mark, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.34.00038', '12345', 'Wika', 'Manometro Digital Tex', 'Manometro', '0 a 16 bar', '12 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 1, 'Atualizado', 1); 
 INSERT INTO tb_instrument (tag, serie, mark, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.34.00038', '12345', 'Wika', 'Manometro Digital Tex', 'Manometro', '0 a 16 bar', '12 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 1, 'Atualizado', 1); 
 INSERT INTO tb_instrument (tag, serie, mark, description, type, range, frequency, last_calibration, status, note, department_id) VALUES ('52.01.30021', '6789', 'Record', 'Paquímetro Analógico', 'Paquímetro', '0 a 200 mm', '6 meses', TIMESTAMP WITH TIME ZONE '2020-11-03T13:00:00Z', 1, 'Reativado', 2); 
