@@ -1,8 +1,9 @@
-package com.zaqueurodrigues.esmetrology.dtos;
+package com.zaqueurodrigues.esmetrology.dtos.users;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import com.zaqueurodrigues.esmetrology.dtos.DepartmentViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Role;
 import com.zaqueurodrigues.esmetrology.entities.User;
 

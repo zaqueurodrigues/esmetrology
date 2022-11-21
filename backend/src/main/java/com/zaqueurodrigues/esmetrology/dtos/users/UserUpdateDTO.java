@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSaveDTO {
+public class UserUpdateDTO {
 	
 	private Long id;
 	@NotBlank
@@ -28,20 +28,17 @@ public class UserSaveDTO {
 	private String enrollment;
 	@NotBlank
 	private String email;
-	@NotBlank
-	private String password;
 	@NotNull
 	private DepartmentViewDTO department;
 	
 	@NotNull
 	private Set<Role> roles = new HashSet<>();
 	
-	public UserSaveDTO(User entity) {
+	public UserUpdateDTO(User entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.enrollment = entity.getEnrollment();
 		this.email = entity.getEmail();
-		this.password = entity.getPassword();
 		this.roles = entity.getRoles();
 		this.department = new DepartmentViewDTO(entity.getDepartment());
 	}

@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.zaqueurodrigues.esmetrology.dtos.UserSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.users.UserSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.users.UserUpdateDTO;
 import com.zaqueurodrigues.esmetrology.services.UserService;
 
 import io.swagger.annotations.Api;
@@ -48,7 +49,7 @@ public class UserResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserSaveDTO dto) {
+	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserUpdateDTO dto) {
 		var result = service.update(id, dto);
 		return ResponseEntity.ok(result);
 	}

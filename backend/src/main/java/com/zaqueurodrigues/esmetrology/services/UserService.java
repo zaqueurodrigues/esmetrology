@@ -14,8 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.zaqueurodrigues.esmetrology.dtos.UserSaveDTO;
-import com.zaqueurodrigues.esmetrology.dtos.UserViewDTO;
+import com.zaqueurodrigues.esmetrology.dtos.users.UserSaveDTO;
+import com.zaqueurodrigues.esmetrology.dtos.users.UserUpdateDTO;
+import com.zaqueurodrigues.esmetrology.dtos.users.UserViewDTO;
 import com.zaqueurodrigues.esmetrology.entities.Department;
 import com.zaqueurodrigues.esmetrology.entities.User;
 import com.zaqueurodrigues.esmetrology.repositories.DepartmentRepository;
@@ -79,7 +80,7 @@ public class UserService implements UserDetailsService {
 
 	}
 
-	public UserViewDTO update(Long id, UserSaveDTO dto) {
+	public UserViewDTO update(Long id, UserUpdateDTO dto) {
 		dto.setId(id);
 		Optional<Department> departmentOp = departmentRepository.findById(dto.getDepartment().getId());
 
@@ -88,9 +89,9 @@ public class UserService implements UserDetailsService {
 		}
 		var department = departmentOp.get();
 
-		var user = repository.getById(id);
+		var user = repository.findById(id).get();
 
-		user = parseDtoToUser(dto);
+		parseUpdateDtoToUser(dto, user);
 		user.setDepartment(department);
 		user = repository.save(user);
 		return new UserViewDTO(user);
@@ -109,6 +110,14 @@ public class UserService implements UserDetailsService {
 				dto.getRoles(),
 				null
 				);
+	}
+	
+	private void parseUpdateDtoToUser(UserUpdateDTO dto, User user) {
+		
+		user.setName(dto.getName());
+		user.setEnrollment(dto.getEnrollment());
+		user.setEmail(dto.getEmail());
+		user.setRoles(dto.getRoles());
 	}
 	
 	public void delete(Long id) {
