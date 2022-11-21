@@ -25,7 +25,7 @@ const Instruments = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
         activePage: 0,
-        filterData: {tag: ''}
+        filterData: {tag: '', id: ''}
     });
 
     const handlePageChange = (pageCount: number) => {
@@ -43,7 +43,7 @@ const Instruments = () => {
             withCredentials: true,
             params: {
                 page: controlComponentsData.activePage,
-                size: 3,
+                size: 5,
                 tag: controlComponentsData.filterData.tag,
             },
         };

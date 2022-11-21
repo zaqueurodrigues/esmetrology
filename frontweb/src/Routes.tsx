@@ -8,6 +8,7 @@ import User from "pages/User";
 import history from "util/history";
 import PrivateRoute from "components/PrivateRoute";
 import InstrumentForm from "pages/Instrument/InstrumentForm";
+import UserForm from "pages/User/UserForm";
 
 
 const Routes = () => (
@@ -39,9 +40,13 @@ const Routes = () => (
                     <Lab />
                 </PrivateRoute>
 
-                <PrivateRoute path="/users">
+                <Route path="/users" exact>
                     <User />
-                </PrivateRoute>
+                </Route>
+                
+                <Route path="/users/:userId" exact>
+                    <UserForm />
+                </Route>
             </Switch>
         </Router>
 );

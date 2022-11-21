@@ -7,7 +7,7 @@ import { Instrument } from "types/instrument";
 import { Department } from "types/department";
 import { requestBackend } from "util/requests";
 import { useEffect, useState } from 'react';
-import Select from "react-select";
+import Select, { ActionMeta } from "react-select";
 import './styles.css';
 
 type UrlParams = {
@@ -18,6 +18,8 @@ const InstrumentForm = () => {
 
     const [selectDepartment, setSelectDepartment] = useState<Department[]>([]);
 
+    const [selectStatus, setSelectStatus] = useState<{}[]>([]); 
+
     const { instrumentId } = useParams<UrlParams>();
 
     const isEditing = instrumentId !== 'create';
@@ -26,11 +28,19 @@ const InstrumentForm = () => {
 
     const { register, handleSubmit, formState: { errors }, setValue, control } = useForm<Instrument>();
 
+
     useEffect(() => {
         requestBackend({ withCredentials: true, url: '/departments' })
             .then((response) => {
                 setSelectDepartment(response.data.content);
             })
+    }, []);
+
+    useEffect(() => {
+        setSelectStatus([
+            { value: 'ACTIVE', label: 'ACTIVE' },
+            { value: 'INACTIVE', label: 'INACTIVE' }
+        ])
     }, []);
 
     useEffect(() => {
@@ -52,6 +62,7 @@ const InstrumentForm = () => {
                     setValue('status', instrument.status);
                     setValue('note', instrument.note);
                     setValue('department', instrument.department);
+
                 });
         }
     }, [isEditing, instrumentId, setValue]);
@@ -73,12 +84,12 @@ const InstrumentForm = () => {
                 })
                 history.push('/instruments');
             })
-            .catch (() => {
-               toast.error('Erro ao salvar o Instrumento', {
+            .catch(() => {
+                toast.error('Erro ao salvar o Instrumento', {
                     autoClose: 2000,
                     pauseOnHover: false,
                     hideProgressBar: true
-               }) 
+                })
             })
     };
 
@@ -179,12 +190,12 @@ const InstrumentForm = () => {
                                                 classNamePrefix="instrument-form-select"
                                                 getOptionLabel={(department: Department) => department.name}
                                                 getOptionValue={(department: Department) =>
-                                                     String(department.id)
+                                                    String(department.id)
                                                 }
                                             />
                                         )}
                                     />
-                                    {errors.department && 
+                                    {errors.department &&
                                         <div className="invalid-feedback d-block">
                                             Campo Obrigatório
                                         </div>
@@ -223,17 +234,24 @@ const InstrumentForm = () => {
                                     <div className="invalid-feedback d-block">{errors.frequency?.message}</div>
                                 </div>
                                 <div className="margin-botton-30">
-                                    <input
-                                        {...register('status', {
-                                            required: 'Campo Obrigatório',
-
-                                        })}
-                                        type="text"
-                                        className={`form-control base-input ${errors.status ? 'is-invalid' : ''}`}
-                                        placeholder="Status"
+                                    <Controller
                                         name="status"
+                                        rules={{ required: true }}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Select
+                                                placeholder="Status"
+                                                options={selectStatus}
+                                                classNamePrefix="instrument-form-select"
+                                            />
+                                        )}
                                     />
-                                    <div className="invalid-feedback d-block">{errors.status?.message}</div>
+                                    {errors.status &&
+                                        <div className="invalid-feedback d-block">
+                                            Campo Obrigatório
+                                        </div>
+                                    }
+
                                 </div>
                                 <textarea
                                     {...register('note')}

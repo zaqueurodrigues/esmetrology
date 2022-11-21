@@ -19,14 +19,14 @@ const BaseCard = ({ columns, link = '', deletedId = 0, onDelete}: Props) => {
             <div className="columns-container">
                 <div className="columns-content">
                     {columns.map((text) => (
-                        <div key={text} className={`columns-itens  ${text === 'INACTIVE' ? 'text-danger fw-bold' : ''} ${text === 'ACTIVE' ? 'text-success fw-bold' : ''}`}>
+                        <div key={text} className={`columns-itens ${text === 'INACTIVE' ? 'text-danger fw-bold' : ''} ${text === 'ACTIVE' ? 'text-success fw-bold' : ''}`}>
                             {text}
                         </div>
                     ))}
                 </div>
             </div>
             {hasAnyRoles(['ROLE_ADMIN']) ? (
-                <div className="buttons-container">
+                <div className={`buttons-container`}>
                     <ButtonEdit link={link} />
                     <ButtonDelete onDelete={onDelete} deletedId={deletedId} />
                 </div>

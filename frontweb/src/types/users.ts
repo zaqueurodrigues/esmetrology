@@ -1,8 +1,12 @@
 import { Department } from "./department";
+import { Roles } from "./roles";
 
 export type User = {
     id: number;
     name: string;
+    enrollment: String;
     email: string;
-    department: Department
+    password: string;
+    department: Department;
+    roles: Roles[];
 }

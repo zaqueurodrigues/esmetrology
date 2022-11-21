@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 export type InstrumentFilterData = {
     tag: string;
+    id: string;
 };
 
 type Props = {

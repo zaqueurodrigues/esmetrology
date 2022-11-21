@@ -13,4 +13,8 @@ export type Instrument = {
 	status: string;
 	note: string;
 	department: Department;
+	statusObj: {
+		value: string,
+		label: string
+	}
 }

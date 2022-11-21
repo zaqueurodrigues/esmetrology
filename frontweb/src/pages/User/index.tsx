@@ -4,21 +4,38 @@ import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "util/requests";
 import TitleCard from 'components/TitleCard';
 import Pagination from "components/Pagination";
-import Search from "components/Search";
+import Search, { InstrumentFilterData } from "components/Search";
 import ButtonAdd from 'components/Buttons/ButtonAdd';
 import CardLoader from "components/CardLoader";
 import { User } from "types/users";
 import BaseCard from "components/BaseCard";
 import Navbar from "components/Navbar";
+import { Link } from 'react-router-dom';
+import { hasAnyRoles } from 'util/auth';
+
+
+type ControlComponentsData = {
+    activePage: number;
+    filterData: InstrumentFilterData;
+}
 
 const UserPage = () => {
 
     const [page, setPage] = useState<SpringPage<User>>();
     const [isLoading, setIsLoading] = useState(false);
+    const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
+        activePage: 0,
+        filterData: {tag: '', id: ''}
+    });
 
     useEffect(() => {
         getUsers();
     }, []);
+
+    const handlePageChange = (pageCount: number) => {
+        setControlComponentsData({activePage: pageCount, filterData: controlComponentsData.filterData})
+    }
+
 
     const getUsers = () => {
         const params: AxiosRequestConfig = {
@@ -58,12 +75,16 @@ const UserPage = () => {
                         <Search />
                     </div>
                     <div className="btn-middle-head-content">
-                        <ButtonAdd text="Adicionar Usuário" />
+                        {hasAnyRoles(['ROLE_ADMIN']) &&
+                            <Link to="/users/create">
+                                <ButtonAdd text="Adicionar Usuário" />
+                            </Link>
+                        }
                     </div>
                 </div>
 
                 <div>
-                    <TitleCard columns={['id', 'nome', 'email', 'setor']} />
+                    <TitleCard columns={['id', 'nome', 'matrícula', 'email']} />
                 </div>
 
                 <div>
@@ -73,15 +94,15 @@ const UserPage = () => {
                                 [
                                     `${user?.id}`,
                                     `${user?.name}`,
+                                    `${user?.enrollment}`,
                                     `${user?.email}`,
-                                    `${user?.department.name}`,
                                 ]
-                            } link="/users/1" />
+                            } link={`/users/${user.id}`} />
                         )))}
                 </div>
 
                 <div>
-                    <Pagination />
+                    <Pagination forcePage={page?.number} pageCount={page?.totalPages} onChange={handlePageChange} />
                 </div>
             </div>
         </div>
