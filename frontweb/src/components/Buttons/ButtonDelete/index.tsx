@@ -6,19 +6,20 @@ import { requestBackend } from 'util/requests';
 type Props = {
     deletedId?: number;
     onDelete?: Function;
+    type?: string;
 };
 
-const ButtonDelete = ({ deletedId = 0, onDelete = () => { } }: Props) => {
+const ButtonDelete = ({ deletedId = 0, onDelete = () => { }, type = '' }: Props) => {
 
     const handleDelete = (id: number) => {
 
-        if (!window.confirm("Deseja apagar o instrumento de id " + id)) {
+        if (!window.confirm("Tem certeza que deseja apagar? " )) {
             return;
         }
 
         const config: AxiosRequestConfig = {
             method: "DELETE",
-            url: `/instruments/${id}`,
+            url: `${type === 'instrument' ? `/instruments/${id}` : `${type === 'user' ? `/users/${id}`: '' }`}`,
             withCredentials: true
         };
 

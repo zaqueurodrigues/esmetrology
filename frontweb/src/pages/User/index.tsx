@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { SpringPage } from "types/vendor/spring";
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "util/requests";
@@ -25,29 +25,28 @@ const UserPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
         activePage: 0,
-        filterData: {tag: '', id: ''}
+        filterData: { tag: '', id: '' }
     });
 
-    useEffect(() => {
-        getUsers();
-    }, []);
-
     const handlePageChange = (pageCount: number) => {
-        setControlComponentsData({activePage: pageCount, filterData: controlComponentsData.filterData})
+        setControlComponentsData({ activePage: pageCount, filterData: controlComponentsData.filterData })
+    }
+
+    const handleSubmitFilter = (data: InstrumentFilterData) => {
+        setControlComponentsData({ activePage: 0, filterData: data })
     }
 
 
-    const getUsers = () => {
+    const getUsers = useCallback(() => {
         const params: AxiosRequestConfig = {
             method: "GET",
             url: "/users",
             withCredentials: true,
             params: {
-                page: 0,
+                page: controlComponentsData.activePage,
                 size: 5
             }
         }
-
         setIsLoading(true);
         requestBackend(params)
             .then(response => {
@@ -55,7 +54,11 @@ const UserPage = () => {
             }).finally(() => {
                 setIsLoading(false);
             });
-    }
+    }, [controlComponentsData]);
+
+    useEffect(() => {
+        getUsers();
+    }, [getUsers]);
 
     return (
         <div className="page-container">
@@ -72,7 +75,7 @@ const UserPage = () => {
 
                 <div className="middle-head-content">
                     <div className="search-middle-head-content" >
-                        <Search />
+                        <Search onSubmitFilter={handleSubmitFilter} />
                     </div>
                     <div className="btn-middle-head-content">
                         {hasAnyRoles(['ROLE_ADMIN']) &&
@@ -90,7 +93,7 @@ const UserPage = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((user: User) => (
-                            <BaseCard onDelete={getUsers} columns={
+                            <BaseCard type='user' key={user.id} deletedId={user.id} onDelete={() => getUsers()} columns={
                                 [
                                     `${user?.id}`,
                                     `${user?.name}`,

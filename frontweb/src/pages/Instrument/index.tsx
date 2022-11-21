@@ -88,7 +88,7 @@ const Instruments = () => {
                 <div>
                     {isLoading ? <CardLoader /> : (
                         page?.content.map((instrument: Instrument) => (
-                            <BaseCard key={instrument.id} deletedId={instrument.id} columns={
+                            <BaseCard type="instrument" key={instrument.id} deletedId={instrument.id} columns={
                                 [
                                     `${instrument?.id}`,
                                     `${instrument?.type}`,
