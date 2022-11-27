@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { SpringPage } from "types/vendor/spring";
 import { AxiosRequestConfig } from "axios";
 import { requestBackend } from "util/requests";
+import { hasAnyRoles } from "util/auth";
 
 const CertificatePage = () => {
 
@@ -36,25 +37,27 @@ const CertificatePage = () => {
 
     return (
         <div className="page-container">
-        <div className="page-nav-container">
-            <Navbar />
+            <div className="page-nav-container">
+                <Navbar />
+            </div>
+            <div className="page-content">
+                <div className="title">
+                    <h1>Certificados</h1>
+                </div>
+                <div className="middle-head-content">
+                    <Search />
+                    {hasAnyRoles(['ROLE_ADMIN']) &&
+                        <ButtonAdd text="Adicionar Certificado" />
+                    }
+                </div>
+                <TitleCard columns={['id', 'codigo', 'instrumento', 'data de calibração']} />
+                <div>
+                </div>
+                <div>
+                    <Pagination />
+                </div>
+            </div>
         </div>
-        <div className="page-content">
-            <div className="title">
-                <h1>Certificados</h1>
-            </div>
-            <div className="middle-head-content">
-                <Search />
-                <ButtonAdd text="Adicionar Certificado" />
-            </div>
-            <TitleCard columns={['id', 'codigo', 'instrumento', 'data de calibração']} />
-            <div>
-            </div>
-            <div>
-                <Pagination />
-            </div>
-        </div>
-    </div>
     );
 }
 

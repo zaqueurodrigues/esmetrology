@@ -10,6 +10,7 @@ import { requestBackend } from "util/requests";
 import CardLoader from "components/CardLoader";
 import { Department } from "types/department";
 import BaseCard from "components/BaseCard";
+import { hasAnyRoles } from "util/auth";
 
 type ControlComponentsData = {
     activePage: number;
@@ -65,7 +66,9 @@ const DepartmentPage = () => {
                 </div>
                 <div className="middle-head-content">
                     <Search />
-                    <ButtonAdd text="Adicionar Setor" />
+                    {hasAnyRoles(['ROLE_ADMIN']) &&
+                        <ButtonAdd text="Adicionar Setor" />
+                    }
                 </div>
                 <TitleCard columns={['id', 'nome']} />
                 <div>
@@ -77,7 +80,7 @@ const DepartmentPage = () => {
                                 `${dep?.id}`,
                                 `${dep?.name}`,
                             ]
-                        } link={`/users/${dep.id}`} />
+                        } link={`/departments/${dep.id}`} />
                     )))}
                 <div>
                     <Pagination forcePage={page?.number} pageCount={page?.totalPages} onChange={handlePageChange} />
