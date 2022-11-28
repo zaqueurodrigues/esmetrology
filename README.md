@@ -47,7 +47,7 @@ Heroku
 Netlify
 
 # 📁 Acesso ao projeto
-Plataforma disponível em: **esmetrology.netlify.app**
+Plataforma disponível em: [**esmetrology.netlify.app**](esmetrology.netlify.app)
 
 Ou 
 
